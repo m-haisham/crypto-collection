@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
     Hamming Code
@@ -16,9 +17,17 @@
                     <h6 class="m-0 font-weight-bold text-primary">Encode</h6>
                 </div>
                 <div class="card-body">
-                    The styling for this basic card example is created by using default Bootstrap
-                    utility classes. By using utility classes, the style of the card component can be
-                    easily modified with no need for any custom CSS!
+                    <form action="{% url 'hamming:encode' %}" data-onerror="<hr><div class='text-danger'>Uh oh. Something went wrong.</div>" data-partial="encode-result"
+                          method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="decodeSequenceInput">Sequence</label>
+                            <input aria-describedby="encode" class="form-control" name="sequence" id="decodeSequenceInput" placeholder="0000"
+                                   type="text" maxlength="4" pattern="[01]+">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    <div id="encode-result"></div>
                 </div>
             </div>
         </div>
@@ -29,11 +38,22 @@
                     <h6 class="m-0 font-weight-bold text-primary">Decode</h6>
                 </div>
                 <div class="card-body">
-                    The styling for this basic card example is created by using default Bootstrap
-                    utility classes. By using utility classes, the style of the card component can be
-                    easily modified with no need for any custom CSS!
+                    <form action="" data-partial="decode-result" data-onerror="<hr><div class='text-danger'>Uh oh. Something went wrong.</div>">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="decodeSequenceInput">Sequence</label>
+                            <input aria-describedby="decode" class="form-control" name="sequence" id="decodeSequenceInput" placeholder="000000"
+                                   type="text" maxlength="7" pattern="[01]+">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    <div id="decode-result"></div>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/partial.js' %}"></script>
 {% endblock %}
