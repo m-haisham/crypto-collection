@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.template.response import TemplateResponse
 
-from crypto.apps.hamming.services.hamming_code_service import HammingCodeService
+from crypto.apps.hamming.services.hamming_service import HammingService
 
 
 def index(request):
@@ -10,7 +10,17 @@ def index(request):
 
 
 def encode(request):
-    service = HammingCodeService()
-    sequence = request.POST['sequence']
+    service = HammingService()
+    sequence = request.POST['sequence'][::-1]
 
-    return TemplateResponse(request, 'hamming/encoded.html', context={'code': service.encode(sequence)})
+    context = {
+        'even': service.encode(sequence, True)[::-1],
+        'odd': service.encode(sequence, False)[::-1],
+    }
+
+    return TemplateResponse(request, 'hamming/encoded.html', context)
+
+
+def decode(request):
+    service = HammingService()
+    sequence = request.POST['sequence']

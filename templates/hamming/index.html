@@ -45,9 +45,21 @@
                             <input aria-describedby="decode" class="form-control" name="sequence" id="decodeSequenceInput" placeholder="000000"
                                    type="text" maxlength="7" pattern="[01]+">
                         </div>
+                        <div class="mb-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="check" id="evenCheckRadio" value="even" checked>
+                                <label class="form-check-label" for="evenCheckRadio">Even</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="check" id="oddCheckRadio" value="odd">
+                                <label class="form-check-label" for="oddCheckRadio">Odd</label>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    <div id="decode-result"></div>
+                    <div id="decode-result">
+
+                    </div>
                 </div>
             </div>
         </div>
