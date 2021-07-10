@@ -1,3 +1,7 @@
+import math
+from typing import Tuple
+
+
 class HammingService:
     def calculate_redundant_bits(self, bit_count):
         """Use the formula 2 ^ r >= bit_count + r + 1 to calculat the number of redundant bits"""
@@ -14,6 +18,17 @@ class HammingService:
                 break
 
             yield current
+
+    def bit_label(self, p):
+        label = 'd'
+        if p == 1 or p == 2:
+            label = 'p'
+
+        rooted = math.sqrt(p)
+        if rooted == math.floor(rooted):
+            label = 'p'
+
+        return f'{label}{p}'
 
     def encode(self, data, is_even=True):
         """
@@ -52,7 +67,7 @@ class HammingService:
 
         return ''.join([str(bit) for bit in arr])
 
-    def detect_error(self, data, is_even=True) -> int:
+    def detect_error(self, data, is_even=True) -> Tuple[str, int]:
         if type(data) == str:
             data = [int(bit) for bit in data]
 
@@ -73,14 +88,18 @@ class HammingService:
             binary = binary + parity * (10**i)
 
         # Convert binary to decimal
-        return int(str(binary), 2)
+        position = int(str(binary), 2)
+
+        # correct error
+        if position > 0:
+            data[position - 1] = data[position - 1] ^ 1
+
+        return ''.join([str(bit) for bit in data]), position
 
     def decode(self, data):
-
         d_index = -1
         result = ''
 
-        data = list(reversed(data))
         length = len(data)
 
         for p in self.generate_parity_positions(length):
@@ -93,5 +112,5 @@ class HammingService:
 
                 result += data[d_index]
 
-        return (result + ''.join(data[d_index + 1:]))[::-1]
+        return result + ''.join(data[d_index + 1:])
 

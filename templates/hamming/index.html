@@ -9,7 +9,12 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Hamming Code</h1>
     </div>
-    <div class="row">
+    <p>
+        Hamming code is a set of error-correction codes that are used to detect and correct errors that may occur
+        during the transmission of the data from the sender to the receiver.
+    </p>
+    <p>The technique was developed by <b>R.W. Hamming.</b></p>
+    <div class="row mt-3">
         <div class="col-lg-6">
             <!-- Encode Card -->
             <div class="card shadow mb-4">
@@ -38,7 +43,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Decode</h6>
                 </div>
                 <div class="card-body">
-                    <form action="" data-partial="decode-result" data-onerror="<hr><div class='text-danger'>Uh oh. Something went wrong.</div>">
+                    <form action="{% url 'hamming:decode' %}" method="post" data-partial="decode-result" data-onerror="<hr><div class='text-danger'>Uh oh. Something went wrong.</div>">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="decodeSequenceInput">Sequence</label>
@@ -57,9 +62,7 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    <div id="decode-result">
-
-                    </div>
+                    <div id="decode-result"></div>
                 </div>
             </div>
         </div>
