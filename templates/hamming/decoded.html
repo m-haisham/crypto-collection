@@ -9,6 +9,16 @@
             {{ bit }}
         {% endif %}
     {% endfor %}
+    <i class="fas fa-times ml-1"></i>
+    <br>
+    {% for bit in corrected %}
+        {% if forloop.revcounter == error_position %}
+            <b class="text-success">{{ bit }}</b>
+        {% else %}
+            {{ bit }}
+        {% endif %}
+    {% endfor %}
+    <i class="fas fa-check ml-1"></i>
     <br>
     <br>
     The following is the corrected hamming sequence.

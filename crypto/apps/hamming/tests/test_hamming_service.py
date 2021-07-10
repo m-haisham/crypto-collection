@@ -20,6 +20,7 @@ class TestHammingService(TestCase):
         self.assertEqual('d5', self.service.bit_label(5))
         self.assertEqual('d6', self.service.bit_label(6))
         self.assertEqual('d7', self.service.bit_label(7))
+        self.assertEqual('p8', self.service.bit_label(8))
 
     def test_encode_even(self):
         self.assertEqual("0100101", self.service.encode("0101"))

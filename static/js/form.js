@@ -26,3 +26,16 @@ document.querySelectorAll('form[data-partial]')
         xhr.send(data)
     }
 ));
+
+document.querySelectorAll('input[pattern][data-block-pattern]')
+    .forEach((form) => {
+        let patternValue = form.getAttribute('pattern')
+        if (patternValue == null) return;
+
+        let pattern = new RegExp(`(?!${patternValue}).`, 'g')
+        form.addEventListener('input', (e) => {
+                e.preventDefault();
+                e.target.value = e.target.value.replace(pattern, '')
+            }
+        );
+    });
