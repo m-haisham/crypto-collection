@@ -1,6 +1,7 @@
 from django.test import TestCase
 
-from crypto.apps.luhn_algorithm.service import LuhnAlgorithm
+from .models import CreditCardType
+from .service import LuhnAlgorithm, CreditCardService
 
 
 class TestLuhnAlgorithm(TestCase):
@@ -17,3 +18,24 @@ class TestLuhnAlgorithm(TestCase):
         self.assertFalse(LuhnAlgorithm.check_valid("5121595262320070"))
         self.assertFalse(LuhnAlgorithm.check_valid("4024007763901440375"))
         self.assertFalse(LuhnAlgorithm.check_valid("0024007112891345"))
+
+
+class TestCreditCardService(TestCase):
+
+    def test_identify_type(self):
+        self.assertEqual(CreditCardType.amex, CreditCardService.identify_type('342163513684'))
+        self.assertEqual(CreditCardType.amex, CreditCardService.identify_type('3716853584'))
+        self.assertNotEqual(CreditCardType.amex, CreditCardService.identify_type('51385416384'))
+
+        self.assertEqual(CreditCardType.master_card, CreditCardService.identify_type('51385416384'))
+        self.assertEqual(CreditCardType.master_card, CreditCardService.identify_type('5421654136854'))
+        self.assertNotEqual(CreditCardType.master_card, CreditCardService.identify_type('3716853584'))
+
+        self.assertEqual(CreditCardType.visa, CreditCardService.identify_type('468514368451'))
+        self.assertNotEqual(CreditCardType.visa, CreditCardService.identify_type('5368435241'))
+
+        self.assertEqual(CreditCardType.discover, CreditCardService.identify_type('60116348541635241'))
+        self.assertEqual(CreditCardType.discover, CreditCardService.identify_type('622126354136'))
+        self.assertEqual(CreditCardType.discover, CreditCardService.identify_type('62292535a63544136'))
+        self.assertEqual(CreditCardType.discover, CreditCardService.identify_type('648354134'))
+        self.assertNotEqual(CreditCardType.discover, CreditCardService.identify_type('75452151'))

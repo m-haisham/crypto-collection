@@ -1,0 +1,29 @@
+{% load static %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Result</h6>
+    </div>
+    <div class="card-body">
+        <div class="text-center">
+            <img src="{% static card_thumbnail %}" alt="Credit Card" class="img-fluid px-3 px-sm-4 mt-3 mb-4">
+            <h5 class="mb-3">{{ card_number }}</h5>
+        </div>
+
+        {# Valid #}
+        {% if valid %}
+            <p>The card number passed the Luhn check and thus is a <b>valid</b> number.</p>
+        {% else %}
+            <p>The card number did not pass the Luhn check and thus is an <b>invalid</b> number.</p>
+        {% endif %}
+
+        {# System #}
+        {% if card_system != null %}
+            <p>This credit card belongs to <b>{{ card_system }}</b> industry.</p>
+        {% else %}
+            <p>We could not identify the industry to which the credit card belongs to.</p>
+        {% endif %}
+
+        {# Issuer #}
+        <p>The card issuer is <b>{% firstof card_type 'unknown' %}</b>.</p>
+    </div>
+</div>

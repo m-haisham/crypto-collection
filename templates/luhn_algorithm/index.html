@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Validate Credit Card Numbers
+{% endblock %}
+
+{% block content %}
+    <h1>Validate Credit Card Numbers</h1>
+
+    <div class="row mt-4">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Check</h6>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'luhn_algorithm:check' %}" method="post"
+                          data-partial="validity-check-result">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="card-check-input">Credit Card Number</label>
+                            <input aria-describedby="credit card number" class="form-control" name="card-number" id="card-check-input"
+                                   type="text" minlength="4" pattern="\d+" data-block-pattern>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="validity-check-result"></div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">About</h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-block d-sm-none text-center mb-3">
+                        <img src="{% static 'assets/credit_card.svg' %}" alt="Credit Card"
+                             class="img-fluid px-3 px-sm-4 mt-3 mb-4">
+                    </div>
+                    <h5>Luhn Algorithm</h5>
+                    <p>Luhn algorithm or Luhn formula is a simple checksum formula used to validate a variety of
+                    identification numbers such as, credit card numbers and IMEI numbers.</p>
+                    <p>
+                        It was named after its creator, IBM scientist
+                        <a href="https://en.wikipedia.org/wiki/Hans_Peter_Luhn">Hans Peter Luhn</a>.
+                    </p>
+                    <h5>Major Industry Identifier</h5>
+                    <p>The first digit of a credit card number represent the category of entity which issued the
+                        card.</p>
+                    <h5>Issuer identification number</h5>
+                    <p>The first six digits of a card number identify the institution that issued the card.</p>
+                    <h5>Personal Account identifier</h5>
+                    <p>From digit no. 7 to final minus 1, indicate individual account identifier.</p>
+                    <p>The last digit is the checksum number.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/form.js' %}"></script>
+{% endblock %}

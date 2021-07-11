@@ -1,0 +1,34 @@
+[
+    {
+        "model": "luhn_algorithm.CreditCard",
+        "pk": 1,
+        "fields": {
+            "name": "American Express",
+            "thumbnail_link": "assets/credit_cards/amex.png"
+        }
+    },
+    {
+        "model": "luhn_algorithm.CreditCard",
+        "pk": 2,
+        "fields": {
+            "name": "Master Card",
+            "thumbnail_link": "assets/credit_cards/master_card.png"
+        }
+    },
+    {
+        "model": "luhn_algorithm.CreditCard",
+        "pk": 3,
+        "fields": {
+            "name": "Visa",
+            "thumbnail_link": "assets/credit_cards/visa.png"
+        }
+    },
+    {
+        "model": "luhn_algorithm.CreditCard",
+        "pk": 4,
+        "fields": {
+            "name": "Discover",
+            "thumbnail_link": "assets/credit_cards/discover.png"
+        }
+    }
+]

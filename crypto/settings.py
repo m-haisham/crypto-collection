@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'crypto.apps.hamming',
+    'crypto.apps.luhn_algorithm',
 ]
 
 MIDDLEWARE = [
