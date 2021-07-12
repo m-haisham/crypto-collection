@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <label for="decodeSequenceInput">Sequence</label>
                             <input aria-describedby="encode" class="form-control" name="sequence" id="decodeSequenceInput" placeholder="0000"
-                                   type="text" maxlength="4" pattern="[01]+">
+                                   type="text" minlength="4" pattern="[01]+" data-block-pattern>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -48,7 +48,7 @@
                         <div class="form-group">
                             <label for="decodeSequenceInput">Sequence</label>
                             <input aria-describedby="decode" class="form-control" name="sequence" id="decodeSequenceInput" placeholder="000000"
-                                   type="text" maxlength="7" pattern="[01]+">
+                                   type="text" minlength="7" pattern="[01]+" data-block-pattern>
                         </div>
                         <div class="mb-3">
                             <div class="form-check form-check-inline">
@@ -70,5 +70,5 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{% static 'js/partial.js' %}"></script>
+    <script src="{% static 'js/form.js' %}"></script>
 {% endblock %}

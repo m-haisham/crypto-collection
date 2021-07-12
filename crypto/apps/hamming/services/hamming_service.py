@@ -24,8 +24,11 @@ class HammingService:
         if p == 1 or p == 2:
             label = 'p'
 
-        rooted = math.sqrt(p)
-        if rooted == math.floor(rooted):
+        num = p
+        while num > 2:
+            num /= 2
+
+        if float(num).is_integer():
             label = 'p'
 
         return f'{label}{p}'
