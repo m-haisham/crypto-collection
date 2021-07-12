@@ -274,6 +274,7 @@ fabric.properties
 # Translations
 
 # Django stuff:
+staticfiles
 
 # Flask stuff:
 
