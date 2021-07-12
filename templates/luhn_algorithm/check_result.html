@@ -1,11 +1,10 @@
-{% load static %}
 <div class="card {{ valid|yesno:'border-left-success,border-left-danger' }} shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Result</h6>
     </div>
     <div class="card-body">
         <div class="text-center">
-            <img src="{% static card_thumbnail %}" alt="Credit Card" class="img-fluid px-3 px-sm-4 mt-3 mb-4">
+            <img src="{{ card_thumbnail }}" alt="Credit Card" class="img-fluid rounded px-3 px-sm-4 mt-3 mb-4">
             <h5 class="mb-3">{{ card_number }}</h5>
         </div>
 

@@ -30,5 +30,56 @@
             "name": "Discover",
             "thumbnail_link": "assets/credit_cards/discover.png"
         }
+    },
+    {
+        "model": "luhn_algorithm.CreditCard",
+        "pk": 5,
+        "fields": {
+            "name": "Visa Electron",
+            "thumbnail_link": "assets/credit_cards/visa_electron.png"
+        }
+    },
+    {
+        "model": "luhn_algorithm.CreditCard",
+        "pk": 6,
+        "fields": {
+            "name": "Maestro",
+            "thumbnail_link": "assets/credit_cards/maestro.png"
+        }
+    },
+    {
+        "model": "luhn_algorithm.CreditCard",
+        "pk": 7,
+        "fields": {
+            "name": "Dankort"
+        }
+    },
+    {
+        "model": "luhn_algorithm.CreditCard",
+        "pk": 8,
+        "fields": {
+            "name": "InterPayment"
+        }
+    },
+    {
+        "model": "luhn_algorithm.CreditCard",
+        "pk": 9,
+        "fields": {
+            "name": "UnionPay"
+        }
+    },
+    {
+        "model": "luhn_algorithm.CreditCard",
+        "pk": 10,
+        "fields": {
+            "name": "Diners"
+        }
+    },
+    {
+        "model": "luhn_algorithm.CreditCard",
+        "pk": 11,
+        "fields": {
+            "name": "JCB"
+        }
     }
 ]
