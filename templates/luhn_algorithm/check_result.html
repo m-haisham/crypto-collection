@@ -1,5 +1,5 @@
 {% load static %}
-<div class="card shadow mb-4">
+<div class="card {{ valid|yesno:'border-left-success,border-left-danger' }} shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Result</h6>
     </div>
@@ -25,5 +25,8 @@
 
         {# Issuer #}
         <p>The card issuer is <b>{% firstof card_type 'unknown' %}</b>.</p>
+
+        {# Personal #}
+        <p>Your personal account number is <b>{{ card_personal }}</b> and your checksum is <b>{{ card_checksum }}</b>.</p>
     </div>
 </div>

@@ -45,3 +45,7 @@ class CreditCardService:
                 or (644 <= int(sequence[:3]) <= 649) \
                 or sequence[:2] == '65':
             return CreditCardType.discover
+
+    @staticmethod
+    def user_identifier(sequence: str):
+        return sequence[6:-1], sequence[-1]

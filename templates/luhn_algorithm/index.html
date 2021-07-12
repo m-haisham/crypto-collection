@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Validate Credit Card Numbers</h1>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Validate Credit Card Numbers</h1>
+    </div>
 
     <div class="row mt-4">
         <div class="col-lg-6">
@@ -21,7 +23,7 @@
                         <div class="form-group">
                             <label for="card-check-input">Credit Card Number</label>
                             <input aria-describedby="credit card number" class="form-control" name="card-number" id="card-check-input"
-                                   type="text" minlength="4" pattern="\d+" data-block-pattern>
+                                   type="text" minlength="13" pattern="\d+" data-block-pattern>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

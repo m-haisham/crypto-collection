@@ -18,12 +18,16 @@ def check(request):
     else:
         card = CreditCard.objects.get(pk=pk)
 
+    personal, checksum = CreditCardService.user_identifier(sequence)
+
     context = {
         'valid': LuhnAlgorithm.check_valid(sequence),
         'card_number': sequence,
         'card_system': CreditCardService.identify_system(sequence),
         'card_type': card.name,
         'card_thumbnail': card.thumbnail_link,
+        'card_personal': personal,
+        'card_checksum': checksum,
     }
 
     return SimpleTemplateResponse('luhn_algorithm/check_result.html', context)
