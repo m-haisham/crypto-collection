@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Crypto Collection
+{% endblock %}
+
+{% block content %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Crypto Collection</h1>
+    </div>
+    <p>Crypto collection is a group projects that are closely connected to cryptography.</p>
+
+    <!-- Projects -->
+    <div class="row mt-4">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Hamming Code</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img src="{% static 'assets/code_inspection.svg' %}" alt="Code inspection" style="max-height: 20rem" class="img-fluid rounded px-3 px-sm-4 mt-3 mb-4">
+                    </div>
+                    <p>
+                        Hamming code is a set of error-correction codes that are used to detect and correct errors that may occur
+                        during the transmission of the data from the sender to the receiver.
+                    </p>
+                    <p>
+                        The technique was developed by
+                        <a href="https://en.wikipedia.org/wiki/Richard_W._Hamming">R.W. Hamming.</a>
+                    </p>
+                    <a href="{% url 'hamming:index' %}" class="btn btn-primary">Explore</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Luhn Algorithm</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img src="{% static 'assets/plain_credit_card.svg' %}" alt="Credit card" style="max-height: 20rem" class="img-fluid rounded px-3 px-sm-4 mt-3 mb-4 py-3 py-sm-5">
+                    </div>
+                    <p>
+                        Luhn algorithm or Luhn formula is a simple checksum formula used to validate a variety of
+                        identification numbers such as, credit card numbers and IMEI numbers.
+                    </p>
+                    <p>
+                        It was named after its creator, IBM scientist
+                        <a href="https://en.wikipedia.org/wiki/Hans_Peter_Luhn">Hans Peter Luhn</a>.
+                    </p>
+                    <a href="{% url 'luhn_algorithm:index' %}" class="btn btn-primary">Explore</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,5 +1,8 @@
+from urllib.parse import quote
+
 from django.shortcuts import render
 from django.template.response import SimpleTemplateResponse
+from django.templatetags.static import static
 
 from .models import CreditCard
 from .service import LuhnAlgorithm, CreditCardService
@@ -25,7 +28,7 @@ def check(request):
         'card_number': sequence,
         'card_system': CreditCardService.identify_system(sequence),
         'card_type': card.name,
-        'card_thumbnail': card.thumbnail_link,
+        'card_thumbnail': static(card.thumbnail_link) if card.thumbnail_link else f'https://via.placeholder.com/202x122?text={quote(card.name)}',
         'card_personal': personal,
         'card_checksum': checksum,
     }
