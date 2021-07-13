@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'crypto.apps.hamming',
     'crypto.apps.luhn_algorithm',
+    'crypto.apps.password_cracking',
 ]
 
 MIDDLEWARE = [
