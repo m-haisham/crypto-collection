@@ -7,17 +7,27 @@ from .service import LuhnAlgorithm, CreditCardService
 class TestLuhnAlgorithm(TestCase):
 
     def test_check_valid(self):
-        self.assertTrue(LuhnAlgorithm.check_valid("4024007112891345"))
-        self.assertTrue(LuhnAlgorithm.check_valid("4916794754360611"))
-        self.assertTrue(LuhnAlgorithm.check_valid("4024007163901440375"))
-        self.assertTrue(LuhnAlgorithm.check_valid("5553415465036283"))
-        self.assertTrue(LuhnAlgorithm.check_valid("5121595262320072"))
-        self.assertTrue(LuhnAlgorithm.check_valid("5316211467945128"))
+        valid = [
+            "4024007112891345",
+            "4916794754360611",
+            "4024007163901440375",
+            "5553415465036283",
+            "5121595262320072",
+            "5316211467945128",
+        ]
 
-        self.assertFalse(LuhnAlgorithm.check_valid("5121595262310072"))
-        self.assertFalse(LuhnAlgorithm.check_valid("5121595262320070"))
-        self.assertFalse(LuhnAlgorithm.check_valid("4024007763901440375"))
-        self.assertFalse(LuhnAlgorithm.check_valid("0024007112891345"))
+        for number in valid:
+            self.assertTrue(LuhnAlgorithm.check_valid(number))
+
+        invalid = [
+            "5121595262310072",
+            "5121595262320070",
+            "4024007763901440375",
+            "0024007112891345",
+        ]
+
+        for number in invalid:
+            self.assertFalse(LuhnAlgorithm.check_valid(number))
 
 
 class TestCreditCardService(TestCase):
