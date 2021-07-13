@@ -14,11 +14,13 @@ class PasswordCrackingService:
 
     def crack(self, unknown_hash: str, options: Iterable[str], hash_function: Encrypt) -> Optional[str]:
         for word in options:
+            print(word)
             if unknown_hash == hash_function(word):
                 return word
 
     def brute_force(self, unknown_hash: str, length: int, hash_function: Encrypt) -> Optional[str]:
         for n in range(1, length + 1):
-            result = self.crack(unknown_hash, self.generate_combinations(self.chars, length), hash_function)
+            print(n)
+            result = self.crack(unknown_hash, self.generate_combinations(self.chars, n), hash_function)
             if result is not None:
                 return result

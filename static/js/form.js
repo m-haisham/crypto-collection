@@ -1,7 +1,42 @@
+function useInnerHTML(id) {
+    let element = document.getElementById(id);
+
+    return [
+        () => element?.innerHTML,
+        (html) => {
+            if (element != null) element.innerHTML = html
+        },
+    ]
+}
+
+function useHidden(id) {
+    let element = document.getElementById(id);
+
+    return [
+        () => element != null && element.getAttribute('hidden') != null,
+        (hide) => {
+            if (element == null) return;
+
+            if (hide) {
+                element.setAttribute('hidden', '')
+            } else {
+                element.removeAttribute('hidden')
+            }
+        }
+    ]
+}
+
 document.querySelectorAll('form[data-partial]')
     .forEach((form) => form.addEventListener('submit', (e) => {
         e.preventDefault();
         const data = new FormData(e.target);
+
+        // remove any previous
+        const [getInnerHTML, setInnerHTML] = useInnerHTML(e.target.dataset.partial);
+        const [isWaitingHidden, setWaitingHidden] = useHidden(form.getAttribute('data-partial-waiting'))
+
+        setInnerHTML('')
+        setWaitingHidden(false)
 
         let xhr = new XMLHttpRequest();
         xhr.open(
@@ -9,18 +44,23 @@ document.querySelectorAll('form[data-partial]')
             e.target.getAttribute('action'),
         )
         xhr.onload = function (event) {
-            let container = document.getElementById(e.target.dataset.partial)
-            if (event.target.status === 200) {
-                container.innerHTML = event.target.responseText
-            } else {
-                container.innerHTML = e.target.dataset.onerror
-                    ?? '<div class="text-danger">Uh oh. Something went wrong.</div>'
+            let html
+            switch (event.target.status) {
+                case 200:
+                    html = event.target.responseText
+                    break
+                default:
+                    html = e.target.dataset.onerror
+                        ?? '<div class="text-danger">Uh oh. Something went wrong.</div>'
+                    break;
             }
 
+            setInnerHTML(html)
+            setWaitingHidden(true)
         }
         xhr.onabort = function (event) {
-            let container = document.getElementById(e.target.dataset.partial)
-            container.innerHTML = '<i class="fas fa-exclamation-circle"></i>'
+            setInnerHTML('<i class="fas fa-exclamation-circle"></i>')
+            setWaitingHidden(true)
         }
 
         xhr.send(data)

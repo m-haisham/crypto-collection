@@ -1,5 +1,62 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     Brute-Force Attack • Password Cracking
+{% endblock %}
+
+{% block content %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Brute-Force Attack</h1>
+    </div>
+
+    <div class="row mt-4">
+        {# cracking form and response #}
+        <div class="col-lg-6">
+
+            {# Form #}
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Crack</h6>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'password_cracking:brute_crack' %}" method="post"
+                        data-partial="bruteResponse" data-partial-waiting="bruteWaiting">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="bruteHashInput">Hash</label>
+                            <input aria-describedby="encode" class="form-control" name="hash" id="bruteHashInput" type="text" pattern="[0-9a-f]+">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            {# Waiting #}
+            <div class="card shadow mb-4" id="bruteWaiting" hidden>
+                <div class="card-body d-flex align-items-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <span class="ml-3">
+                        Processing...
+                    </span>
+                </div>
+            </div>
+
+            <div id="bruteResponse"></div>
+        </div>
+
+        {# additional information #}
+        <div class="col-lg-6">
+            <div class="py-3">
+                <h5 class="m-0 font-weight-bold text-primary">About</h5>
+            </div>
+            [Write some comprehensive explanation about how brute force works]
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/form.js' %}"></script>
 {% endblock %}
