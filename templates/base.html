@@ -25,44 +25,57 @@
 
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item">
-                <a href="{% url 'home' %}" class="nav-link">
-                    <i class="fas fa-fw fa-home"></i>
-                    <span>Home</span>
-                </a>
-            </li>
+
+            {% with view_name=request.resolver_match.view_name %}
+                <li class="nav-item {% if view_name == 'home' %}active{% endif %}">
+                    <a href="{% url 'home' %}" class="nav-link">
+                        <i class="fas fa-fw fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+            {% endwith %}
 
             <hr class="sidebar-divider">
 
             <li class="sidebar-heading">Projects</li>
 
-            <li class="nav-item">
-                <a href="{% url 'luhn_algorithm:index' %}" class="nav-link">
-                    <i class="fas fa-fw fa-credit-card"></i>
-                    <span>Credit Card</span>
-                </a>
-            </li>
+            {% with view_name=request.resolver_match.view_name %}
+                <li class="nav-item {% if view_name == 'luhn_algorithm:index' %}active{% endif %}">
+                    <a href="{% url 'luhn_algorithm:index' %}" class="nav-link">
+                        <i class="fas fa-fw fa-credit-card"></i>
+                        <span>Credit Card</span>
+                    </a>
+                </li>
+            {% endwith %}
 
-            <li class="nav-item">
-                <a href="{% url 'hamming:index' %}" class="nav-link">
-                    <i class="fas fa-fw fa-grip-horizontal"></i>
-                    <span>Hamming Code</span>
-                </a>
-            </li>
+            {% with view_name=request.resolver_match.view_name %}
+                <li class="nav-item {% if view_name == 'hamming:index' %}active{% endif %}">
+                    <a href="{% url 'hamming:index' %}" class="nav-link">
+                        <i class="fas fa-fw fa-grip-horizontal"></i>
+                        <span>Hamming Code</span>
+                    </a>
+                </li>
+            {% endwith %}
 
-            <li class="nav-item">
-                <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#passwordCrackingNav" aria-expanded="false" aria-controls="passwordCrackingNav">
-                    <i class="fas fa-fw fa-lock"></i>
-                    <span>Crack Password</span>
-                </a>
-                <div id="passwordCrackingNav" class="collapse">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Methods:</h6>
-                        <a class="collapse-item" href="{% url 'password_cracking:brute_force' %}">Brute Force</a>
-                        <a class="collapse-item" href="{% url 'password_cracking:dictionary' %}">Dictionary</a>
+            {% with app_name=request.resolver_match.app_name view_name=request.resolver_match.view_name %}
+                <li class="nav-item {% if app_name == 'password_cracking' %}active{% endif %}">
+                    <a href="#" class="nav-link collapsed" data-toggle="collapse" data-target="#passwordCrackingNav" aria-expanded="false" aria-controls="passwordCrackingNav">
+                        <i class="fas fa-fw fa-lock"></i>
+                        <span>Crack Password</span>
+                    </a>
+                    <div id="passwordCrackingNav" class="collapse {% if app_name == 'password_cracking' %}show{% endif %}">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Methods:</h6>
+                            <a class="collapse-item {% if view_name == 'password_cracking:brute_force' %}active{% endif %}" href="{% url 'password_cracking:brute_force' %}">
+                                Brute Force
+                            </a>
+                            <a class="collapse-item {% if view_name == 'password_cracking:dictionary' %}active{% endif %}" href="{% url 'password_cracking:dictionary' %}">
+                                Dictionary
+                            </a>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            {% endwith %}
 
             <hr class="sidebar-divider">
 
