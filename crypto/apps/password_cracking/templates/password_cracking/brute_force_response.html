@@ -1,12 +1,12 @@
 <div class="card shadow mb-4">
-    <div class="card-header py-3 bg-{{ succeeded|yesno:'success,danger' }}">
-        <h6 class="m-0 font-weight-bold text-white">{{ succeeded|yesno:'Found,Not Found' }}</h6>
+    <div class="card-header py-3 bg-{{ is_cracked|yesno:'success,danger' }}">
+        <h6 class="m-0 font-weight-bold text-white">{{ is_cracked|yesno:'Found,Not Found' }}</h6>
     </div>
-    {% if succeeded %}
+    {% if is_cracked %}
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
-                <span class="font-weight-bold">{{ word }}</span>
-                <button type="button" class="btn" onclick="navigator.clipboard.writeText('{{ word }}')">
+                <span class="font-weight-bold">{{ keyword }}</span>
+                <button type="button" class="btn" onclick="navigator.clipboard.writeText('{{ keyword }}')">
                     <i class="fas fa-copy"></i>
                 </button>
             </div>
@@ -14,10 +14,10 @@
     {% endif %}
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
-            <i class="fa fa-clock mr-3"></i> 9.8 seconds
+            <i class="fa fa-clock mr-3"></i>{{ time_taken }}
         </li>
         <li class="list-group-item">
-            <i class="fa fa-layer-group mr-3"></i> 95125 words
+            <i class="fa fa-layer-group mr-3"></i>{{ processed_count }} words
         </li>
     </ul>
 </div>

@@ -19,8 +19,10 @@ def brute_crack(request):
 
     result = service.brute_force(hashed_word, 6, encrypt)
     context = {
-        "word": result,
-        "succeeded": result is not None,
+        "keyword": result.keyword,
+        "is_cracked": result.is_cracked,
+        'time_taken': result.time_taken,
+        'processed_count': result.processed_count,
     }
 
     return SimpleTemplateResponse('password_cracking/brute_force_response.html', context)

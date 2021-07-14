@@ -20,7 +20,7 @@ class TestPasswordCrackingService(TestCase):
             return hashlib.sha1(value.encode('utf-8')).hexdigest()
 
         for word in test_words:
-            self.assertEqual(word, self.service.brute_force(encrypt(word), len(word), encrypt))
+            self.assertEqual(word, self.service.brute_force(encrypt(word), len(word), encrypt).keyword)
 
     def test_dictionary(self):
         dictionary = ['1', '2', 'three', '4', '8', '10', 'twenty']
@@ -30,8 +30,8 @@ class TestPasswordCrackingService(TestCase):
 
         test_words = ['4', 'three']
         for word in test_words:
-            self.assertEqual(word, self.service.crack(encrypt(word), dictionary, encrypt))
+            self.assertEqual(word, self.service.crack(encrypt(word), dictionary, encrypt).keyword)
 
         test_words = ['5', 'six']
         for word in test_words:
-            self.assertIsNone(self.service.crack(encrypt(word), dictionary, encrypt))
+            self.assertIsNone(self.service.crack(encrypt(word), dictionary, encrypt).keyword)

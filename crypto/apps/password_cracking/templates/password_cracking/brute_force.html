@@ -44,15 +44,32 @@
                 </div>
             </div>
 
+            {# Response #}
             <div id="bruteResponse"></div>
         </div>
 
         {# additional information #}
         <div class="col-lg-6">
-            <div class="py-3">
-                <h5 class="m-0 font-weight-bold text-primary">About</h5>
-            </div>
-            [Write some comprehensive explanation about how brute force works]
+            <h3 class="mb-2">About</h3>
+            <p>
+                A brute-force attack uses trial-and-error to guess the passwords or passphrases. It is the digital
+                equivalent of trying every key in your key ring, and eventually finding the right one.
+            </p>
+            <p>
+                A brute-force attack can, in theory, be used to decrypt any encrypted key. However in practice this is not
+                feasible. For longer passwords such an attack may take years to guess, as the length of the password
+                increases the number possible combinations increase exponentially.
+            </p>
+            <p>
+                However for shorter password it is still a simple and reliable method to decrypt a password. And for
+                longer passwords other methods like <a href="{% url 'password_cracking:dictionary' %}">dictionary attack</a>
+                are used.
+            </p>
+            <p>
+                This sample application generates all the possible combinations for lowercase ascii with the number digits
+                for a maximum length of 6 characters. However, please be aware that 6 character hashes may take some time
+                to decrypt.
+            </p>
         </div>
     </div>
 {% endblock %}
