@@ -2,12 +2,12 @@ import hashlib
 
 from django.test import TestCase
 
-from .services import PasswordCrackingService
+from .services import CrackingService
 
 
 class TestPasswordCrackingService(TestCase):
 
-    service = PasswordCrackingService()
+    service = CrackingService()
 
     def test_generate_combinations(self):
         self.assertListEqual(['aa', 'ab', 'ba', 'bb'], list(self.service.generate_combinations('ab', 2)))
