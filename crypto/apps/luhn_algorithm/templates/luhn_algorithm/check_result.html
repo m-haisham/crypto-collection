@@ -1,6 +1,6 @@
-<div class="card {{ valid|yesno:'border-left-success,border-left-danger' }} shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Result</h6>
+<div class="card shadow mb-4">
+    <div class="card-header py-3 bg-{{ valid|yesno:'success,danger' }}">
+        <h6 class="m-0 font-weight-bold text-white">{{ valid|yesno:'Valid,Invalid' }}</h6>
     </div>
     <div class="card-body">
         <div class="text-center">

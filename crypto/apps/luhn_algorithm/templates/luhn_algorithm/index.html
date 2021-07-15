@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block title %}
-    Validate Credit Card Numbers
+    Validate Credit Card
 {% endblock %}
 
 {% block content %}
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Validate Credit Card Numbers</h1>
+        <h1 class="h3 mb-0 text-gray-800">Validate Credit Card</h1>
     </div>
 
     <div class="row mt-4">
@@ -18,19 +18,30 @@
                 </div>
                 <div class="card-body">
                     <form action="{% url 'luhn_algorithm:check' %}" method="post"
-                          data-partial="validity-check-result">
+                          data-partial="validityCheckResult">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="card-check-input">Credit Card Number</label>
                             <input aria-describedby="credit card number" class="form-control" name="card-number" id="card-check-input"
-                                   type="text" minlength="13" pattern="\d+" data-block-pattern>
+                                   type="text" minlength="16" pattern="\d+" data-block-pattern>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
 
-            <div id="validity-check-result"></div>
+            {# Error #}
+            <div class="card shadow mb-3" id="validityCheckError" hidden>
+                <div class="card-header py-3 bg-danger">
+                    <h6 class="m-0 font-weight-bold text-white">Error</h6>
+                </div>
+                <div class="card-body">
+                    Uh oh. Something went wrong. Please try again.
+                </div>
+            </div>
+
+            {# Result #}
+            <div id="validityCheckResult"></div>
         </div>
 
         <div class="col-lg-6">
@@ -44,8 +55,10 @@
                              class="img-fluid px-3 px-sm-4 mt-3 mb-4">
                     </div>
                     <h5>Luhn Algorithm</h5>
-                    <p>Luhn algorithm or Luhn formula is a simple checksum formula used to validate a variety of
-                    identification numbers such as, credit card numbers and IMEI numbers.</p>
+                    <p>
+                        Luhn algorithm or Luhn formula is a simple checksum formula used to validate a variety of
+                        identification numbers such as, credit card numbers and IMEI numbers.
+                    </p>
                     <p>
                         It was named after its creator, IBM scientist
                         <a href="https://en.wikipedia.org/wiki/Hans_Peter_Luhn">Hans Peter Luhn</a>.
@@ -65,5 +78,6 @@
 {% endblock %}
 
 {% block scripts %}
+    <script src="{% static 'js/hooks.js' %}"></script>
     <script src="{% static 'js/form.js' %}"></script>
 {% endblock %}

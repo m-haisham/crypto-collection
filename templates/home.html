@@ -20,7 +20,7 @@
                 </div>
                 <div class="card-body">
                     <div class="text-center">
-                        <img src="{% static 'assets/code_inspection.svg' %}" alt="Code inspection" style="max-height: 20rem" class="img-fluid rounded px-3 px-sm-4 mt-3 mb-4">
+                        <img src="{% static 'assets/transfer_files.svg' %}" alt="Code inspection" style="max-height: 20rem" class="img-fluid rounded px-3 px-sm-4 mt-3 mb-4">
                     </div>
                     <p>
                         Hamming code is a set of error-correction codes that are used to detect and correct errors that may occur
@@ -44,6 +44,7 @@
                     <div class="text-center">
                         <img src="{% static 'assets/plain_credit_card.svg' %}" alt="Credit card" style="max-height: 20rem" class="img-fluid rounded px-3 px-sm-4 mt-3 mb-4 py-3 py-sm-5">
                     </div>
+                    <br>
                     <p>
                         Luhn algorithm or Luhn formula is a simple checksum formula used to validate a variety of
                         identification numbers such as, credit card numbers and IMEI numbers.
@@ -53,6 +54,36 @@
                         <a href="https://en.wikipedia.org/wiki/Hans_Peter_Luhn">Hans Peter Luhn</a>.
                     </p>
                     <a href="{% url 'luhn_algorithm:index' %}" class="btn btn-primary">Explore</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Password Cracking</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img src="{% static 'assets/authentication.svg' %}" alt="Credit card" style="max-height: 20rem" class="img-fluid rounded px-3 px-sm-4 mt-3 mb-4">
+                    </div>
+                    <p>
+                        Password cracking refers to various methods and measures used to recover data that has been
+                        stored in or transmitted by a computer system.
+                    </p>
+                    <p>
+                        Repeatedly trying guesses for the password and to check them against an already available
+                        hashing algorithm is a common approach. This is also known a
+                        <a href="{% url 'password_cracking:brute_force' %}">brute-force attack</a>.
+                    </p>
+                    <p>
+                        A variant of the above mentioned is the <a href="{% url 'password_cracking:dictionary' %}">dictionary attack.</a>
+                        It uses lists of words most likely or lists of passwords obtained from previous security breaches
+                        as opposed to trying every possible combination of letters.
+                    </p>
+                    <a href="{% url 'password_cracking:brute_force' %}" class="btn btn-primary">Brute-Force</a>
+                    <a href="{% url 'password_cracking:dictionary' %}" class="btn btn-primary">Dictionary</a>
                 </div>
             </div>
         </div>

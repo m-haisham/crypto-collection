@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.template.response import SimpleTemplateResponse
 
-from crypto.apps.hamming.services.hamming_service import HammingService
+from .services import HammingService
 
 
 def index(request):

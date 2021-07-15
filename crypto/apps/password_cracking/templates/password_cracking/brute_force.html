@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Brute-Force Attack • Password Cracking
+{% endblock %}
+
+{% block content %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Brute-Force Attack</h1>
+    </div>
+
+    <div class="row mt-4">
+        {# cracking form and response #}
+        <div class="col-lg-6">
+
+            {# Form #}
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Crack</h6>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'password_cracking:brute_crack' %}" method="post"
+                        data-partial="bruteResponse" data-partial-waiting="bruteWaiting">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="bruteHashInput">Hash</label>
+                            <input aria-describedby="encode" class="form-control" name="hash" id="bruteHashInput" type="text" pattern="[0-9a-f]+">
+                        </div>
+                        <div class="form-group">
+                            <label for="bruteEncryption">Encryption</label>
+                            <select name="encryption" id="bruteEncryption" class="form-control">
+                                {% for hash_type in hash_types %}
+                                    <option {% if forloop.counter0 == 0 %}selected{% endif %}>{{ hash_type }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            {# Waiting #}
+            <div class="card shadow mb-4" id="bruteWaiting" hidden>
+                <div class="card-body d-flex align-items-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <span class="ml-3">
+                        Processing...
+                    </span>
+                </div>
+            </div>
+
+            {# Response #}
+            <div id="bruteResponse"></div>
+        </div>
+
+        {# additional information #}
+        <div class="col-lg-6">
+            <h3 class="mb-2">About</h3>
+            <p>
+                A brute-force attack uses trial-and-error to guess the passwords or passphrases. It is the digital
+                equivalent of trying every key in your key ring, and eventually finding the right one.
+            </p>
+            <p>
+                A brute-force attack can, in theory, be used to decrypt any encrypted key. However in practice this is not
+                feasible. For longer passwords such an attack may take years to guess, as the length of the password
+                increases the number possible combinations increase exponentially.
+            </p>
+            <p>
+                However for shorter password it is still a simple and reliable method to decrypt a password. And for
+                longer passwords other methods like <a href="{% url 'password_cracking:dictionary' %}">dictionary attack</a>
+                are used.
+            </p>
+            <p>
+                This sample application generates all the possible combinations for lowercase ascii with the number digits
+                for a maximum length of 6 characters. However, please be aware that 6 character hashes may take some time
+                to decrypt.
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/hooks.js' %}"></script>
+    <script src="{% static 'js/form.js' %}"></script>
+{% endblock %}
