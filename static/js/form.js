@@ -1,66 +1,36 @@
-function useInnerHTML(id) {
-    let element = document.getElementById(id);
-
-    return [
-        () => element?.innerHTML,
-        (html) => {
-            if (element != null) element.innerHTML = html
-        },
-    ]
-}
-
-function useHidden(id) {
-    let element = document.getElementById(id);
-
-    return [
-        () => element != null && element.getAttribute('hidden') != null,
-        (hide) => {
-            if (element == null) return;
-
-            if (hide) {
-                element.setAttribute('hidden', '')
-            } else {
-                element.removeAttribute('hidden')
-            }
-        }
-    ]
-}
-
 document.querySelectorAll('form[data-partial]')
     .forEach((form) => form.addEventListener('submit', (e) => {
         e.preventDefault();
         const data = new FormData(e.target);
 
-        // remove any previous
         const [getInnerHTML, setInnerHTML] = useInnerHTML(e.target.dataset.partial);
-        const [isWaitingHidden, setWaitingHidden] = useHidden(form.getAttribute('data-partial-waiting'))
+        const [isErrorHidden, setErrorHidden] = useHidden(e.target.dataset.partialError)
+        const [isWaitingHidden, setWaitingHidden] = useHidden(e.target.dataset.partialWaiting)
 
-        setInnerHTML('')
+        setErrorHidden(true)
         setWaitingHidden(false)
+        if (!isWaitingHidden()) setInnerHTML('')
 
         let xhr = new XMLHttpRequest();
         xhr.open(
             e.target.getAttribute('method'),
             e.target.getAttribute('action'),
         )
+        xhr.onabort = function (event) {
+            setErrorHidden(false)
+            setWaitingHidden(true)
+        }
         xhr.onload = function (event) {
-            let html
             switch (event.target.status) {
                 case 200:
-                    html = event.target.responseText
+                    setInnerHTML(event.target.responseText)
+                    setWaitingHidden(true)
                     break
                 default:
-                    html = e.target.dataset.onerror
-                        ?? '<div class="text-danger">Uh oh. Something went wrong.</div>'
+                    xhr.onabort(event)
                     break;
             }
 
-            setInnerHTML(html)
-            setWaitingHidden(true)
-        }
-        xhr.onabort = function (event) {
-            setInnerHTML('<i class="fas fa-exclamation-circle"></i>')
-            setWaitingHidden(true)
         }
 
         xhr.send(data)

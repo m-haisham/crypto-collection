@@ -16,14 +16,14 @@
     <p>The technique was developed by <b>R.W. Hamming.</b></p>
     <div class="row mt-3">
         <div class="col-lg-6">
+
             <!-- Encode Card -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Encode</h6>
                 </div>
                 <div class="card-body">
-                    <form action="{% url 'hamming:encode' %}" data-onerror="<hr><div class='text-danger'>Uh oh. Something went wrong.</div>" data-partial="encode-result"
-                          method="post">
+                    <form action="{% url 'hamming:encode' %}" data-partial="encodeResult" data-partial-error="encodeError" method="post">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="decodeSequenceInput">Sequence</label>
@@ -32,10 +32,21 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    <div id="encode-result"></div>
+
+                    {# Error #}
+                    <div id="encodeError" hidden>
+                        <hr>
+                        <div class='text-danger'>Uh oh. Something went wrong.</div>
+                    </div>
+
+                    {# Result #}
+                    <div id="encodeResult"></div>
+
                 </div>
             </div>
+
         </div>
+
         <div class="col-lg-6">
             <!-- Decode Card -->
             <div class="card shadow mb-4">
@@ -43,7 +54,8 @@
                     <h6 class="m-0 font-weight-bold text-primary">Decode</h6>
                 </div>
                 <div class="card-body">
-                    <form action="{% url 'hamming:decode' %}" method="post" data-partial="decode-result" data-onerror="<hr><div class='text-danger'>Uh oh. Something went wrong.</div>">
+
+                    <form action="{% url 'hamming:decode' %}" method="post" data-partial="decodeResult" data-partial-error="decodeError">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="decodeSequenceInput">Sequence</label>
@@ -62,7 +74,16 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    <div id="decode-result"></div>
+
+                    {# Error #}
+                    <div id="decodeError" hidden>
+                        <hr>
+                        <div class='text-danger'>Uh oh. Something went wrong.</div>
+                    </div>
+
+                    {# Result #}
+                    <div id="decodeResult"></div>
+
                 </div>
             </div>
         </div>
@@ -70,5 +91,6 @@
 {% endblock %}
 
 {% block scripts %}
+    <script src="{% static 'js/hooks.js' %}"></script>
     <script src="{% static 'js/form.js' %}"></script>
 {% endblock %}

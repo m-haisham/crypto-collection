@@ -18,7 +18,7 @@
                 </div>
                 <div class="card-body">
                     <form action="{% url 'luhn_algorithm:check' %}" method="post"
-                          data-partial="validity-check-result">
+                          data-partial="validityCheckResult">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="card-check-input">Credit Card Number</label>
@@ -30,7 +30,18 @@
                 </div>
             </div>
 
-            <div id="validity-check-result"></div>
+            {# Error #}
+            <div class="card shadow mb-3" id="validityCheckError" hidden>
+                <div class="card-header py-3 bg-danger">
+                    <h6 class="m-0 font-weight-bold text-white">Error</h6>
+                </div>
+                <div class="card-body">
+                    Uh oh. Something went wrong. Please try again.
+                </div>
+            </div>
+
+            {# Result #}
+            <div id="validityCheckResult"></div>
         </div>
 
         <div class="col-lg-6">
@@ -67,5 +78,6 @@
 {% endblock %}
 
 {% block scripts %}
+    <script src="{% static 'js/hooks.js' %}"></script>
     <script src="{% static 'js/form.js' %}"></script>
 {% endblock %}
