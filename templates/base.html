@@ -8,7 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'css/sb-admin-2.min.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/fontawesome/all.min.css' %}">
-    <title>{% block title %}{% endblock %}</title>
+    {% block head %}
+    {% endblock %}
 </head>
 <body id="page-top">
 
