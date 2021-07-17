@@ -3,6 +3,7 @@ import hashlib
 from django.shortcuts import render
 from django.template.response import SimpleTemplateResponse
 
+from .forms import DictionaryForm
 from .services import CrackingService
 
 
@@ -27,8 +28,38 @@ def brute_crack(request):
         'processed_count': result.processed_count,
     }
 
-    return SimpleTemplateResponse('password_cracking/brute_force_response.html', context)
+    return SimpleTemplateResponse('password_cracking/response.html', context)
 
 
 def dictionary(request):
-    return render(request, 'password_cracking/dictionary.html')
+    if request.method == 'POST':
+        form = DictionaryForm(request.POST, request.FILES)
+        if form.is_valid():
+            hashed_word = form.cleaned_data['hashed_word']
+            enc_type = form.cleaned_data['enc_type']
+            dict_file = form.cleaned_data['dict_file']
+
+            def words():
+                """return words of the file as a generator"""
+                with dict_file.open('r') as f:
+                    lines = f.read().split(b'\n')
+
+                for line in lines:
+                    yield line
+
+            service = CrackingService()
+            result = service.crack(hashed_word, words(), service.get_encryption_function(enc_type))
+
+            context = {
+                "keyword": result.keyword,
+                "is_cracked": result.is_cracked,
+                'time_taken': result.time_taken,
+                'processed_count': result.processed_count,
+            }
+
+            return SimpleTemplateResponse('password_cracking/response.html', context)
+
+    else:
+        form = DictionaryForm()
+
+    return render(request, 'password_cracking/dictionary.html', {'form': form})

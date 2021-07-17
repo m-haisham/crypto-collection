@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'widget_tweaks',
+
     'crypto.apps.hamming',
     'crypto.apps.luhn_algorithm',
     'crypto.apps.password_cracking',
