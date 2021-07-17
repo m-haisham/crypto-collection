@@ -1,12 +1,74 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
 
-{% block title %}
-    Dictionary Attack • Password Cracking
+{% block head %}
+    <title>Dictionary Attack • Password Cracking</title>
 {% endblock %}
 
 {% block content %}
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dictionary Attack</h1>
     </div>
-    Coming soon
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Crack</h6>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'password_cracking:dictionary' %}" method="post" data-partial="dict-response" data-partial-waiting="dict-waiting">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="{{ form.hashed_word.id_for_label }}">Hash</label>
+                            {% render_field form.hashed_word class="form-control" pattern="[0-9a-f]+" data-block-pattern=True %}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.enc_type.id_for_label }}">Encryption</label>
+                            {% render_field form.enc_type class="form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="file-input-group">Dictionary</label>
+                            <div class="input-group" id="file-input-group">
+                                <div>
+                                    {% render_field form.dict_file class='custom-file-input' %}
+                                    <label class="custom-file-label" for="{{ form.dict_file.id_for_label }}">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            {# Waiting #}
+            {% include 'password_cracking/waiting_card.html' %}
+
+            {# Response #}
+            <div id="dict-response"></div>
+        </div>
+
+        <div class="col-lg-6">
+            <h3>About</h3>
+            <p>
+                A dictionary attack is a brute-force technique where the algorithm runs through a list of predefined
+                words and phrases, such as those from a dictionary or previous data breaches.
+            </p>
+            <p>
+                Where traditional brute-force attacks may try every possible combination, a dictionary attack uses
+                a limited number of pre-selected words. As a dictionary attack doesnt go through every possible
+                combination it reduces the likelihood that a difficult password may be guessed. On the other hand, this
+                reduces the time and resources required to execute such an attack.
+            </p>
+            <p>
+                A dictionary attack tried only those that are deemed most likely to succeed. Dictionary attacks often
+                succeed because many people use short passwords or ordinary words.
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/hooks.js' %}"></script>
+    <script src="{% static 'js/form.js' %}"></script>
 {% endblock %}

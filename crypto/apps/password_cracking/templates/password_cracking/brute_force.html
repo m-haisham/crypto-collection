@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}
-    Brute-Force Attack • Password Cracking
+{% block head %}
+    <title>Brute-Force Attack • Password Cracking</title>
 {% endblock %}
 
 {% block content %}
@@ -41,16 +41,7 @@
             </div>
 
             {# Waiting #}
-            <div class="card shadow mb-4" id="bruteWaiting" hidden>
-                <div class="card-body d-flex align-items-center">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <span class="ml-3">
-                        Processing...
-                    </span>
-                </div>
-            </div>
+            {% include 'password_cracking/waiting_card.html' %}
 
             {# Response #}
             <div id="bruteResponse"></div>

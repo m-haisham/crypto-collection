@@ -49,3 +49,11 @@ document.querySelectorAll('input[pattern][data-block-pattern]')
             }
         );
     });
+
+document.querySelectorAll('input.custom-file-input')
+    .forEach((form) => form.addEventListener('change', (e) => {
+        const fileName = e.target.files[0].name;
+        const id = e.target.getAttribute('id')
+
+        document.querySelector(`label[for="${id}"]`).innerText = fileName
+    }))

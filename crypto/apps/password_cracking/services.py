@@ -28,7 +28,7 @@ class CrackingResult:
 
 
 class CrackingService:
-    encrypt = Callable[[str], str]
+    encrypt = Callable[[bytes], str]
 
     charset = ascii_lowercase + digits
     encryption_types = ['sha1', 'sha224', 'sha256', 'sha384', 'sha512', 'md5', ]
@@ -36,20 +36,20 @@ class CrackingService:
     @classmethod
     def get_encryption_function(cls, enc_type: str) -> encrypt:
         def enc_function(value):
-            return getattr(hashlib, enc_type)(value.encode('utf-8')).hexdigest()
+            return getattr(hashlib, enc_type)(value).hexdigest()
 
         return enc_function
 
     def generate_combinations(self, iterable: Iterable, length: int):
         for value in itertools.product(iterable, repeat=length):
-            yield ''.join(value)
+            yield ''.join(value).encode('utf-8')
 
-    def crack(self, unknown_hash: str, options: Iterable[str], hash_function: encrypt) -> CrackingResult:
+    def crack(self, unknown_hash: str, options: Iterable[bytes], hash_function: encrypt) -> CrackingResult:
         start_time = datetime.now()
         count = 1
         for word in options:
             if unknown_hash == hash_function(word):
-                return CrackingResult(keyword=word, time_taken=datetime.now() - start_time, processed_count=count)
+                return CrackingResult(keyword=word.decode('utf-8'), time_taken=datetime.now() - start_time, processed_count=count)
 
             count += 1
 
