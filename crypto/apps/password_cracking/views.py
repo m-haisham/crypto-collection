@@ -1,18 +1,7 @@
-import hashlib
-
-from django.shortcuts import render
 from django.template.response import SimpleTemplateResponse
 
 from .forms import DictionaryForm
 from .services import CrackingService
-
-
-def brute_force(request):
-    context = {
-        'hash_types': CrackingService.encryption_types,
-    }
-
-    return render(request, 'password_cracking/brute_force.html', context)
 
 
 def brute_crack(request):
@@ -32,34 +21,29 @@ def brute_crack(request):
 
 
 def dictionary(request):
-    if request.method == 'POST':
-        form = DictionaryForm(request.POST, request.FILES)
-        if form.is_valid():
-            hashed_word = form.cleaned_data['hashed_word']
-            enc_type = form.cleaned_data['enc_type']
-            dict_file = form.cleaned_data['dict_file']
+    form = DictionaryForm(request.POST, request.FILES)
 
-            def words():
-                """return words of the file as a generator"""
-                with dict_file.open('r') as f:
-                    lines = f.read().split(b'\n')
+    if form.is_valid():
+        hashed_word = form.cleaned_data['hashed_word']
+        enc_type = form.cleaned_data['enc_type']
+        dict_file = form.cleaned_data['dict_file']
 
-                for line in lines:
-                    yield line
+        def words():
+            """return words of the file as a generator"""
+            with dict_file.open('r') as f:
+                lines = f.read().split(b'\n')
 
-            service = CrackingService()
-            result = service.crack(hashed_word, words(), service.get_encryption_function(enc_type))
+            for line in lines:
+                yield line
 
-            context = {
-                "keyword": result.keyword,
-                "is_cracked": result.is_cracked,
-                'time_taken': result.time_taken,
-                'processed_count': result.processed_count,
-            }
+        service = CrackingService()
+        result = service.crack(hashed_word, words(), service.get_encryption_function(enc_type))
 
-            return SimpleTemplateResponse('password_cracking/response.html', context)
+        context = {
+            "keyword": result.keyword,
+            "is_cracked": result.is_cracked,
+            'time_taken': result.time_taken,
+            'processed_count': result.processed_count,
+        }
 
-    else:
-        form = DictionaryForm()
-
-    return render(request, 'password_cracking/dictionary.html', {'form': form})
+        return SimpleTemplateResponse('password_cracking/response.html', context)

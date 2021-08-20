@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <title>Hamming Code</title>
+{% endblock %}
+
+{% block content %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Hamming Code</h1>
+    </div>
+    <p>
+        Hamming code is a set of error-correction codes that are used to detect and correct errors that may occur
+        during the transmission of the data from the sender to the receiver.
+    </p>
+    <p>The technique was developed by <b>R.W. Hamming.</b></p>
+    <div class="row mt-3">
+        <div class="col-lg-6">
+
+            <!-- Encode Card -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Encode</h6>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'hamming:encode' %}" data-partial="encodeResult" data-partial-error="encodeError" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="decodeSequenceInput">Sequence</label>
+                            <input aria-describedby="encode" class="form-control" name="sequence" id="decodeSequenceInput" placeholder="0000"
+                                   type="text" minlength="4" pattern="[01]+" data-block-pattern>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+
+                    {# Error #}
+                    <div id="encodeError" hidden>
+                        <hr>
+                        <div class='text-danger'>Uh oh. Something went wrong.</div>
+                    </div>
+
+                    {# Result #}
+                    <div id="encodeResult"></div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-6">
+            <!-- Decode Card -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Decode</h6>
+                </div>
+                <div class="card-body">
+
+                    <form action="{% url 'hamming:decode' %}" method="post" data-partial="decodeResult" data-partial-error="decodeError">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="decodeSequenceInput">Sequence</label>
+                            <input aria-describedby="decode" class="form-control" name="sequence" id="decodeSequenceInput" placeholder="000000"
+                                   type="text" minlength="7" pattern="[01]+" data-block-pattern>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="check" id="evenCheckRadio" value="even" checked>
+                                <label class="form-check-label" for="evenCheckRadio">Even</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="check" id="oddCheckRadio" value="odd">
+                                <label class="form-check-label" for="oddCheckRadio">Odd</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+
+                    {# Error #}
+                    <div id="decodeError" hidden>
+                        <hr>
+                        <div class='text-danger'>Uh oh. Something went wrong.</div>
+                    </div>
+
+                    {# Result #}
+                    <div id="decodeResult"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/hooks.js' %}"></script>
+    <script src="{% static 'js/form.js' %}"></script>
+{% endblock %}

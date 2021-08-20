@@ -25,6 +25,7 @@ document.querySelectorAll('form[data-partial]')
                 case 200:
                     setInnerHTML(event.target.responseText)
                     setWaitingHidden(true)
+                    setErrorHidden(true)
                     break
                 default:
                     xhr.onabort(event)

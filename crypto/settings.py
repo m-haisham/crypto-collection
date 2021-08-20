@@ -41,9 +41,10 @@ INSTALLED_APPS = [
 
     'widget_tweaks',
 
-    'crypto.apps.hamming',
+    'crypto.apps.hamming_code',
     'crypto.apps.luhn_algorithm',
     'crypto.apps.password_cracking',
+    'crypto.apps.blog',
 ]
 
 MIDDLEWARE = [
