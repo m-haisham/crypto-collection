@@ -1,91 +1,76 @@
-{% extends 'base.html' %}
+{% extends 'base/main.html' %}
 {% load static %}
 
 {% block head %}
-    <title>Crypto Collection</title>
+    <title>Cryptick</title>
 {% endblock %}
 
-{% block content %}
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Crypto Collection</h1>
-    </div>
-    <p>Crypto collection is a group projects that are closely connected to cryptography.</p>
+{% block heading %}
+    <h1>Cryptick</h1>
+    <span class="subheading">Let's learn about basic Cryptography</span>
+{% endblock %}
+{% block background %}{% static 'assets/background/home.jpg' %}{% endblock %}
 
-    <!-- Projects -->
-    <div class="row mt-4">
-        <div class="col-lg-6">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Hamming Code</h6>
-                </div>
-                <div class="card-body">
-                    <div class="text-center">
-                        <img src="{% static 'assets/transfer_files.svg' %}" alt="Code inspection" style="max-height: 20rem" class="img-fluid rounded px-3 px-sm-4 mt-3 mb-4">
-                    </div>
-                    <p>
-                        Hamming code is a set of error-correction codes that are used to detect and correct errors that may occur
-                        during the transmission of the data from the sender to the receiver.
-                    </p>
-                    <p>
-                        The technique was developed by
-                        <a href="https://en.wikipedia.org/wiki/Richard_W._Hamming">R.W. Hamming.</a>
-                    </p>
-                    <a href="{% url 'hamming:index' %}" class="btn btn-primary">Explore</a>
-                </div>
-            </div>
-        </div>
+{% block main %}
 
-        <div class="col-lg-6">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Luhn Algorithm</h6>
-                </div>
-                <div class="card-body">
-                    <div class="text-center">
-                        <img src="{% static 'assets/plain_credit_card.svg' %}" alt="Credit card" style="max-height: 20rem" class="img-fluid rounded px-3 px-sm-4 mt-3 mb-4 py-3 py-sm-5">
-                    </div>
-                    <br>
-                    <p>
-                        Luhn algorithm or Luhn formula is a simple checksum formula used to validate a variety of
-                        identification numbers such as, credit card numbers and IMEI numbers.
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+
+                <!-- Post preview-->
+                <div class="post-preview">
+                    <a href="{% url 'blog:posts' date='2021-07-17' name='dictionary-attack' %}">
+                        <h2 class="post-title">Dictionary Attack</h2>
+                        <h3 class="post-subtitle">An elaborate list of words</h3>
+                    </a>
+                    <p class="post-meta">
+                        Posted by
+                        <a href="https://github.com/mensch272">Mensch272</a>
+                        on July 17, 2021
                     </p>
-                    <p>
-                        It was named after its creator, IBM scientist
-                        <a href="https://en.wikipedia.org/wiki/Hans_Peter_Luhn">Hans Peter Luhn</a>.
-                    </p>
-                    <a href="{% url 'luhn_algorithm:index' %}" class="btn btn-primary">Explore</a>
                 </div>
+
+                <!-- Post preview-->
+                <div class="post-preview">
+                    <a href="{% url 'blog:posts' date='2021-07-14' name='brute-force-attack' %}">
+                        <h2 class="post-title">Brute-Force Attack</h2>
+                        <h3 class="post-subtitle">Not 1111? How about 1112, or is it 1113, must be 1114...</h3>
+                    </a>
+                    <p class="post-meta">
+                        Posted by
+                        <a href="https://github.com/mensch272">Mensch272</a>
+                        on July 14, 2021
+                    </p>
+                </div>
+
+                <!-- Post preview-->
+                <div class="post-preview">
+                    <a href="{% url 'blog:posts' date='2021-07-12' name='luhn-algorithm' %}">
+                        <h2 class="post-title">Luhn Algorithm</h2>
+                        <h3 class="post-subtitle">Validate your credit card number</h3>
+                    </a>
+                    <p class="post-meta">
+                        Posted by
+                        <a href="https://github.com/mensch272">Mensch272</a>
+                        on July 12, 2021
+                    </p>
+                </div>
+
+                <!-- Post preview-->
+                <div class="post-preview">
+                    <a href="{% url 'blog:posts' date='2021-07-10' name='hamming-code' %}">
+                        <h2 class="post-title">Hamming Code</h2>
+                        <h3 class="post-subtitle">Linear error-correcting codes</h3>
+                    </a>
+                    <p class="post-meta">
+                        Posted by
+                        <a href="https://github.com/mensch272">Mensch272</a>
+                        on July 10, 2021
+                    </p>
+                </div>
+
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Password Cracking</h6>
-                </div>
-                <div class="card-body">
-                    <div class="text-center">
-                        <img src="{% static 'assets/authentication.svg' %}" alt="Credit card" style="max-height: 20rem" class="img-fluid rounded px-3 px-sm-4 mt-3 mb-4">
-                    </div>
-                    <p>
-                        Password cracking refers to various methods and measures used to recover data that has been
-                        stored in or transmitted by a computer system.
-                    </p>
-                    <p>
-                        Repeatedly trying guesses for the password and to check them against an already available
-                        hashing algorithm is a common approach. This is also known a
-                        <a href="{% url 'password_cracking:brute_force' %}">brute-force attack</a>.
-                    </p>
-                    <p>
-                        A variant of the above mentioned is the <a href="{% url 'password_cracking:dictionary' %}">dictionary attack.</a>
-                        It uses lists of words most likely or lists of passwords obtained from previous security breaches
-                        as opposed to trying every possible combination of letters.
-                    </p>
-                    <a href="{% url 'password_cracking:brute_force' %}" class="btn btn-primary">Brute-Force</a>
-                    <a href="{% url 'password_cracking:dictionary' %}" class="btn btn-primary">Dictionary</a>
-                </div>
-            </div>
-        </div>
-    </div>
+
 {% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'base/main.html' %}
+{% load static %}
+
+{% block heading %}
+    <h1>Hamming Code</h1>
+    <span class="subheading">Linear error-correcting codes</span>
+    <p class="meta">
+        Posted by
+        <a href="https://github.com/mensch272">Mensch272</a>
+        on July 10, 2021
+    </p>
+{% endblock %}
+{% block background %}{% static 'assets/background/mistake.jpg' %}{% endblock %}
+
+{% block main %}
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <p>
+                        Hamming code is a set of error-correction codes that are used to detect and correct errors that may occur
+                        during the transmission of the data from the sender to the receiver.
+                    </p>
+                    <p>The technique was developed by <b>R.W. Hamming.</b></p>
+                    <h2 class="section-heading">Encoding</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{% url 'hamming:encode' %}" data-partial="encodeResult" data-partial-error="encodeError" method="post">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="decodeSequenceInput" class="form-label">Sequence</label>
+                                    <input aria-describedby="encode" class="form-control" name="sequence" id="decodeSequenceInput" placeholder="0000"
+                                           type="text" minlength="4" pattern="[01]+" data-block-pattern required>
+                                </div>
+                                <button type="submit" class="btn btn-sm btn-secondary">Submit</button>
+                            </form>
+
+                            {# Error #}
+                            <div id="encodeError" hidden>
+                                <hr>
+                                <div class='text-danger'>Uh oh. Something went wrong.</div>
+                            </div>
+
+                            {# Result #}
+                            <div id="encodeResult"></div>
+                        </div>
+                    </div>
+                    <h2 class="section-heading">Decoding</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{% url 'hamming:decode' %}" method="post" data-partial="decodeResult" data-partial-error="decodeError">
+                                {% csrf_token %}
+                                <div class="form-group mb-3">
+                                    <label for="decodeSequenceInput" class="form-label">Sequence</label>
+                                    <input aria-describedby="decode" class="form-control" name="sequence" id="decodeSequenceInput" placeholder="000000"
+                                           type="text" minlength="7" pattern="[01]+" data-block-pattern required>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="check" id="evenCheckRadio" value="even" checked>
+                                        <label class="form-check-label" for="evenCheckRadio">Even</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="check" id="oddCheckRadio" value="odd">
+                                        <label class="form-check-label" for="oddCheckRadio">Odd</label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-sm btn-secondary">Submit</button>
+                            </form>
+
+                            {# Error #}
+                            <div id="decodeError" hidden>
+                                <hr>
+                                <div class='text-danger'>Uh oh. Something went wrong.</div>
+                            </div>
+
+                            {# Result #}
+                            <div id="decodeResult"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/hooks.js' %}"></script>
+    <script src="{% static 'js/form.js' %}"></script>
+{% endblock %}
