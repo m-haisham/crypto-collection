@@ -32,7 +32,7 @@
                                     <input aria-describedby="encode" class="form-control" name="sequence" id="decodeSequenceInput" placeholder="0000"
                                            type="text" minlength="4" pattern="[01]+" data-block-pattern required>
                                 </div>
-                                <button type="submit" class="btn btn-sm btn-secondary">Submit</button>
+                                <button type="submit" class="btn btn-secondary">Submit</button>
                             </form>
 
                             {# Error #}
@@ -50,7 +50,7 @@
                         <div class="card-body">
                             <form action="{% url 'hamming:decode' %}" method="post" data-partial="decodeResult" data-partial-error="decodeError">
                                 {% csrf_token %}
-                                <div class="form-group mb-3">
+                                <div class="mb-3">
                                     <label for="decodeSequenceInput" class="form-label">Sequence</label>
                                     <input aria-describedby="decode" class="form-control" name="sequence" id="decodeSequenceInput" placeholder="000000"
                                            type="text" minlength="7" pattern="[01]+" data-block-pattern required>
@@ -65,7 +65,7 @@
                                         <label class="form-check-label" for="oddCheckRadio">Odd</label>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-sm btn-secondary">Submit</button>
+                                <button type="submit" class="btn btn-secondary">Submit</button>
                             </form>
 
                             {# Error #}

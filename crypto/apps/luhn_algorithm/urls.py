@@ -4,6 +4,5 @@ from . import views
 
 app_name = 'luhn_algorithm'
 urlpatterns = [
-    path('', views.index, name='index'),
     path('check/', views.check, name='check'),
 ]

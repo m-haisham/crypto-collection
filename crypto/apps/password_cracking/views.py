@@ -1,18 +1,7 @@
-import hashlib
-
-from django.shortcuts import render
 from django.template.response import SimpleTemplateResponse
 
 from .forms import DictionaryForm
 from .services import CrackingService
-
-
-def brute_force(request):
-    context = {
-        'hash_types': CrackingService.encryption_types,
-    }
-
-    return render(request, 'password_cracking/brute_force.html', context)
 
 
 def brute_crack(request):

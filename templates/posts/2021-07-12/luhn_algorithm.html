@@ -10,7 +10,7 @@
         on July 12, 2021
     </p>
 {% endblock %}
-{% block background %}{% static 'assets/background/mistake.jpg' %}{% endblock %}
+{% block background %}{% static 'assets/background/creditcard.jpg' %}{% endblock %}
 
 {% block main %}
     <article class="mb-4">
@@ -33,12 +33,12 @@
                             <form action="{% url 'luhn_algorithm:check' %}" method="post"
                                   data-partial="validityCheckResult">
                                 {% csrf_token %}
-                                <div class="form-group mb-2">
+                                <div class="mb-3">
                                     <label for="card-check-input" class="form-label">Credit Card Number</label>
                                     <input aria-describedby="credit card number" class="form-control" name="card-number" id="card-check-input"
                                            type="text" minlength="16" pattern="\d+" data-block-pattern>
                                 </div>
-                                <button type="submit" class="btn btn-sm btn-secondary">Submit</button>
+                                <button type="submit" class="btn btn-secondary">Submit</button>
                             </form>
                         </div>
                     </div>

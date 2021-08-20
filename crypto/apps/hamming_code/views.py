@@ -1,11 +1,6 @@
-from django.shortcuts import render
 from django.template.response import SimpleTemplateResponse
 
 from .services import HammingService
-
-
-def index(request):
-    return render(request, "hamming/index.html")
 
 
 def encode(request):

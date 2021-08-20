@@ -1,15 +1,10 @@
 from urllib.parse import quote
 
-from django.shortcuts import render
 from django.template.response import SimpleTemplateResponse
 from django.templatetags.static import static
 
 from .models import CreditCard
 from .service import LuhnAlgorithm, CreditCardService
-
-
-def index(request):
-    return render(request, 'luhn_algorithm/index.html')
 
 
 def check(request):
