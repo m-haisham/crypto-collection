@@ -1,4 +1,5 @@
 import json
+import uuid
 from urllib.parse import parse_qs
 
 from channels.generic.websocket import AsyncWebsocketConsumer
@@ -8,6 +9,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     alias: str
     room_name: str
     room_group_name: str
+    user_id: str
 
     async def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
@@ -15,6 +17,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         params = parse_qs(self.scope['query_string'].decode())
         self.alias = params.get('alias').pop()
+        self.user_id = uuid.uuid4().hex
 
         # Join room group
         await self.channel_layer.group_add(
@@ -43,6 +46,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'type': 'chat_message',
                 'message': message,
                 'alias': self.alias,
+                'user_id': self.user_id,
             }
         )
 
@@ -53,4 +57,5 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             'message': event['message'],
             'alias': event['alias'],
+            'is_self': self.user_id == event['user_id'],
         }))
