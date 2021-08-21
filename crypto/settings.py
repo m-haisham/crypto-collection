@@ -40,11 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'widget_tweaks',
+    'channels',
 
     'crypto.apps.hamming_code',
     'crypto.apps.luhn_algorithm',
     'crypto.apps.password_cracking',
     'crypto.apps.blog',
+    'crypto.apps.chat',
 ]
 
 MIDDLEWARE = [
@@ -78,6 +80,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'crypto.wsgi.application'
 
+# Channels
+
+ASGI_APPLICATION = "crypto.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
