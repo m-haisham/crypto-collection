@@ -12,20 +12,17 @@
     <input id="chat-message-input" type="text" size="100"><br>
     <input id="chat-message-submit" type="button" value="Send">
     {{ room_name|json_script:"room-name" }}
+    {{ alias|json_script:"alias" }}
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const alias = JSON.parse(document.getElementById('alias').textContent);
 
-        const chatSocket = new WebSocket(
-            'ws://'
-            + window.location.host
-            + '/ws/chat/'
-            + roomName
-            + '/'
-        );
+
+        const chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/${roomName}/?alias=${alias}`)
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += (data.message + '\n');
+            document.querySelector('#chat-log').value += (data.alias + ':' + data.message + '\n');
         };
 
         chatSocket.onclose = function(e) {
