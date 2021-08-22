@@ -1,5 +1,6 @@
 import json
 import uuid
+from datetime import datetime
 from urllib.parse import parse_qs
 
 from channels.generic.websocket import AsyncWebsocketConsumer
@@ -48,6 +49,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'text': message,
                 'alias': self.alias,
                 'user_id': self.user_id,
+                'time': str(datetime.now())
             }
         )
 
@@ -59,5 +61,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
             'id': event['id'],
             'text': event['text'],
             'alias': event['alias'],
+            'time': event['time'],
             'is_self': self.user_id == event['user_id'],
         }))

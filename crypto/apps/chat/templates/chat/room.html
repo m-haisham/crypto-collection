@@ -3,6 +3,7 @@
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'chat/styles.css' %}">
     <title>Chat Room</title>
 {% endblock %}
 
@@ -17,10 +18,10 @@
                     <div class="d-flex flex-column h-100 col-md-10 col-lg-8 col-xl-7">
                         <div class="d-flex flex-column gap-3 mt-auto mb-3" id="messages">
                             <template x-for="message in messages">
-                                <div class="card card-body fs-6" style="max-width: 75%" :class="message['is_self'] ? 'bg-light align-self-end' : ''">
+                                <div class="card card-body w-75 message" @click="showSecret(message)" :class="message['is_self'] ? 'bg-light align-self-end' : ''">
                                     <div>
                                         <span x-text="message.alias" class="fw-bold"></span> -
-                                        <a href="#" class="link-primary" @click="showSecret(message)">?</a>
+                                        <small class="p-0" x-text="message.time"></small>
                                     </div>
                                     <div x-text="message.text"></div>
                                 </div>
@@ -28,17 +29,19 @@
                         </div>
                         <div class="py-2" id="input">
                             <div class="mb-3 d-flex gap-1">
-                                <input x-model="inputs.message" type="text" class="form-control" name="message" placeholder="Message">
+                                <input x-model="inputs.message" @keydown.enter="send()" type="text" class="form-control" name="message" placeholder="Message">
                                 <button @click="send()" class="btn btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                     SEND
                                 </button>
                             </div>
                             <div class="row g-3">
                                 <div class="col-2">
-                                    <input x-model="inputs.key" type="text" class="form-control col-2" name="key" placeholder="key">
+                                    <input x-model="inputs.key" type="text" class="form-control col-2"
+                                           name="key" placeholder="key" @keydown.enter="focus.secret()">
                                 </div>
                                 <div class="col">
-                                    <input x-model="inputs.secret" type="text" class="form-control col" name="secret" placeholder="Secret message">
+                                    <input x-model="inputs.secret" type="text" class="form-control col" name="secret"
+                                           placeholder="Secret message" @keydown.enter="focus.message()">
                                 </div>
                             </div>
                         </div>

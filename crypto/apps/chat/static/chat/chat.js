@@ -1,5 +1,8 @@
 
 function alpineData() {
+    const messageInput = document.querySelector('input[name="message"]')
+    const keyInput = document.querySelector('input[name="message"]')
+    const secretInput = document.querySelector('input[name="message"]')
 
     return {
         socket: null,
@@ -54,6 +57,8 @@ function alpineData() {
                     message: 'Connection was terminated unexpectedly.'
                 }
             }
+
+            messageInput.focus()
         },
         send: function () {
             let message = this.inputs.message;
@@ -75,6 +80,14 @@ function alpineData() {
 
             const secret = this.cipher.decode(bitstring)
             alert(secret)
+        },
+
+        // UTILITY METHODS
+
+        focus: {
+            message: messageInput.focus,
+            key: keyInput.focus,
+            secret: secretInput.focus,
         }
     }
 }

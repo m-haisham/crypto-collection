@@ -1,0 +1,9 @@
+
+.message {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.message:hover {
+    opacity: 90%;
+}
