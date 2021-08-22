@@ -43,8 +43,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_send(
             self.room_group_name,
             {
+                'id': uuid.uuid4().hex,
                 'type': 'chat_message',
-                'message': message,
+                'text': message,
                 'alias': self.alias,
                 'user_id': self.user_id,
             }
@@ -55,7 +56,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
-            'message': event['message'],
+            'id': event['id'],
+            'text': event['text'],
             'alias': event['alias'],
             'is_self': self.user_id == event['user_id'],
         }))

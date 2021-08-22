@@ -1,49 +1,58 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <title>Chat Room</title>
-</head>
-<body>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
-    <input id="chat-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
-    {{ room_name|json_script:"room-name" }}
-    {{ alias|json_script:"alias" }}
-    <script>
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
-        const alias = JSON.parse(document.getElementById('alias').textContent);
+{% endblock %}
 
+{% block content %}
+    {% include 'base/navigation.html' %}
 
-        const chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/${roomName}/?alias=${alias}`)
+    <div class="d-flex flex-column vh-100">
+        <header class="bg-head"></header>
+        <div class="d-flex flex-column h-100" x-data="alpineData()" x-init="alpineInit()">
+            <div class="h-100 container px-4 px-lg-5">
+                <div class="h-100 row gx-4 gx-lg-5 justify-content-center">
+                    <div class="d-flex flex-column h-100 col-md-10 col-lg-8 col-xl-7">
+                        <div class="d-flex flex-column gap-3 mt-auto mb-3" id="messages">
+                            <template x-for="message in messages">
+                                <div class="card card-body fs-6" style="max-width: 75%" :class="message['is_self'] ? 'bg-light align-self-end' : ''">
+                                    <div>
+                                        <span x-text="message.alias" class="fw-bold"></span> -
+                                        <a href="#" class="link-primary" @click="showSecret(message)">?</a>
+                                    </div>
+                                    <div x-text="message.text"></div>
+                                </div>
+                            </template>
+                        </div>
+                        <div class="py-2" id="input">
+                            <div class="mb-3 d-flex gap-1">
+                                <input x-model="inputs.message" type="text" class="form-control" name="message" placeholder="Message">
+                                <button @click="send()" class="btn btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                    SEND
+                                </button>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-2">
+                                    <input x-model="inputs.key" type="text" class="form-control col-2" name="key" placeholder="key">
+                                </div>
+                                <div class="col">
+                                    <input x-model="inputs.secret" type="text" class="form-control col" name="secret" placeholder="Secret message">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
-        chatSocket.onmessage = function(e) {
-            const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += (data.alias + ':' + data.message + '\n');
-        };
-
-        chatSocket.onclose = function(e) {
-            console.error('Chat socket closed unexpectedly');
-        };
-
-        document.querySelector('#chat-message-input').focus();
-        document.querySelector('#chat-message-input').onkeyup = function(e) {
-            if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#chat-message-submit').click();
-            }
-        };
-
-        document.querySelector('#chat-message-submit').onclick = function(e) {
-            const messageInputDom = document.querySelector('#chat-message-input');
-            const message = messageInputDom.value;
-            chatSocket.send(JSON.stringify({
-                'message': message
-            }));
-            messageInputDom.value = '';
-        };
-    </script>
-</body>
-</html>
+{% block scripts %}
+    {{ room_info|json_script:"room-info" }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+    <script src="{% static 'chat/cipher.js' %}"></script>
+    <script src="{% static 'chat/chat.js' %}"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+{% endblock %}

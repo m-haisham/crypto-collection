@@ -7,8 +7,10 @@ def index(request):
 
 def room(request, room_name):
     context = {
-        'room_name': room_name,
-        'alias': request.GET.get('alias', 'Anonymous'),
+        'room_info': {
+            'room_name': room_name,
+            'alias': request.GET.get('alias', 'Anonymous'),
+        }
     }
 
     return render(request, 'chat/room.html', context)
