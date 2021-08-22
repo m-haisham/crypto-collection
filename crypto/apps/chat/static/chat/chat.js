@@ -32,7 +32,8 @@ function alpineData() {
             const roomName = roomInfo['room_name'];
             const alias = roomInfo['alias'];
 
-            this.socket = new WebSocket(`ws://${window.location.host}/ws/chat/${roomName}/?alias=${alias}`)
+            const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws'
+            this.socket = new WebSocket(`${protocol}://${window.location.host}/ws/chat/${roomName}/?alias=${alias}`)
 
             this.socket.onopen = () => {
                 this.status = {
