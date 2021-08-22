@@ -2,6 +2,10 @@
 {% load widget_tweaks %}
 {% load static %}
 
+{% block head %}
+    <title>Blog | Dictionary Attack</title>
+{% endblock %}
+
 {% block heading %}
     <h1>Dictionary Attack</h1>
     <span class="subheading">An elaborate list of words</span>
@@ -69,7 +73,8 @@
                     <div class="d-flex justify-content-between">
                         <a href="{% url 'blog:posts' date='2021-07-14' name='brute-force-attack' %}"
                            class="btn btn-primary">PREVIOUS</a>
-                        <div></div>
+                        <a href="{% url 'blog:posts' date='2021-08-21' name='hiding-in-strings' %}"
+                           class="btn btn-primary">NEXT</a>
                     </div>
                 </div>
             </div>

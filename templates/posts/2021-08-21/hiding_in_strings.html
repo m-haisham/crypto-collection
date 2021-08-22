@@ -1,0 +1,98 @@
+{% extends 'base/main.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block head %}
+    <title>Blog | Hiding Secrets in Strings</title>
+{% endblock %}
+
+{% block heading %}
+    <h1>Hiding Secrets in Strings</h1>
+    <span class="subheading">Best place to hide is in plain sight</span>
+    <p class="meta">
+        Posted by
+        <a href="https://github.com/mensch272">Mensch272</a>
+        on August 21, 2021
+    </p>
+{% endblock %}
+{#{% block background %}{% static 'assets/illustrations/security.png' %}{% endblock %}#}
+
+{% block main %}
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <p>Steganography is described as the art of concealing a message in another. In this case, a string
+                    is hidden within another string. Any innocent bystander will see the unconcealed string would not
+                    take notice to the concealed message.</p>
+                    <p>In cryptography, the observer is able clearly see that a message has been encrypted and this
+                    gives raise to scrutiny. Whereas in steganography, the intended secret message is hidden from
+                    outside observers, thus does not attract any unwanted attention.</p>
+                    <p>However, the problem with steganography is that should anyone realize the presence of a secret
+                    message they are able to access it easily. Hence, to truly secure the message and hide it from
+                    observers we must apply both.</p>
+
+                    <h2 class="section-heading pb-3">Encrypting the secret message</h2>
+                    <img src="{% static 'assets/illustrations/security.png' %}" alt="Security" class="img-fluid">
+                    <p>The secret message is encrypted using a password of your choice.</p>
+                    <p>The password is used to seed the pseudo-random number generator. We obtain the key-stream
+                    by continuously generating 32-bit integers and appending their bitstring to it until we have a
+                    sufficient length. The binary representation of the secret message is encrypted by using the XOR
+                    operation with the key-stream.</p>
+                    <p>To decrypt the secret message, the receiver can perform the same XOR operation on their matching key-stream generated using
+                    the password.</p>
+                    <p>
+                        Pseudo-Random Number Generator (PRNG) by
+                        <a href="https://github.com/davidbau/seedrandom">davidbau/seedrandom</a>
+                    </p>
+
+                    <h2 class="section-heading pb-3">Hiding the secret message in a plain string</h2>
+                    <img src="{% static 'assets/illustrations/new_message.png' %}" alt="Hiding" class="img-fluid">
+                    <p>Zero-Width Characters also known as Invisible characters are non-printing characters in the
+                    unicode table. As the name indicates they arent drawn in text.</p>
+                    <p>The below table shows the unicode characters that we will be using.</p>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Bits</th>
+                                <th scope="col">Char</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>00</td><td>200C (A)</td></tr>
+                            <tr><td>01</td><td>200D (B)</td></tr>
+                            <tr><td>10</td><td>2060 (C)</td></tr>
+                            <tr><td>11</td><td>2062 (D)</td></tr>
+                        </tbody>
+                    </table>
+                    <p>The encoded bitstring is converted to invisible characters by applying the above table.</p>
+                    <p>For example:</p>
+                    <pre>01101000 01101001</pre>
+                    <p>When encoded with the above table gives:</p>
+                    <pre>BCCABCCB</pre>
+                    <p>This is then placed in the first space or between the first and second character if there is no
+                    space in the unconcealed string.</p>
+                    <pre>Unconcealed <small>BCCABCCB</small>String</pre>
+                    <p>The resulting string is sent as the message where the receiver with the key will decrypt and
+                    read it.</p>
+                    <p><a href="{% url 'chat:index' %}">Try it yourself.</a></p>
+
+                    <!-- Divider-->
+                    <hr class="my-4" />
+
+                    <!-- Navigation -->
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'blog:posts' date='2021-07-17' name='dictionary-attack' %}"
+                           class="btn btn-primary">PREVIOUS</a>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/hooks.js' %}"></script>
+    <script src="{% static 'js/form.js' %}"></script>
+{% endblock %}}

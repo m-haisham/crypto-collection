@@ -10,4 +10,5 @@ urlpatterns = [
     path('luhn-algorithm/', include('crypto.apps.luhn_algorithm.urls')),
     path('password-cracking/', include('crypto.apps.password_cracking.urls')),
     path('blog/', include('crypto.apps.blog.urls')),
+    path('chat/', include('crypto.apps.chat.urls')),
 ]

@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+{% block head %}
+    <title>Chat | Gateway</title>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Navigation-->
+    {% include 'base/navigation.html' %}
+
+    <header class="masthead vh-100 m-0">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7 bg-light rounded p-5">
+                    <form action="" method="get">
+                        <div class="mb-3">
+                          <label for="roomName" class="form-label">Room</label>
+                          <input type="text" class="form-control" id="roomName" name="room">
+                        </div>
+                        <div class="mb-3">
+                          <label for="personAlias" class="form-label">Alias (Optional)</label>
+                          <input type="text" class="form-control" id="personAlias" name="alias">
+                        </div>
+                        <button type="submit" class="btn btn-primary">ENTER</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function onsubmit(e) {
+            e.preventDefault();
+            const data = new FormData(e.target);
+            const room = data.get('room')
+            const alias = data.get('alias')
+
+            if (!room) alert("'Room' is required");
+
+            document.location.href = `/chat/${room}` + (alias ? `?alias=${alias}` : '');
+        }
+
+        document.querySelector('#roomName').focus();
+        document.querySelector('form').addEventListener('submit', onsubmit);
+    </script>
+{% endblock %}
