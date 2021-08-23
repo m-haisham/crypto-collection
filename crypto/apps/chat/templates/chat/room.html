@@ -17,8 +17,8 @@
                 <div class="h-100 row gx-4 gx-lg-5 justify-content-center">
                     <div class="d-flex flex-column h-100 col-md-10 col-lg-8 col-xl-7">
                         <div class="d-flex flex-column gap-3 mt-auto mb-3" id="messages">
-                            <template x-for="message in messages">
-                                <div class="card card-body w-75 message" @click="showSecret(message)" :class="message['is_self'] ? 'bg-light align-self-end' : ''">
+                            <template x-for="id in order">
+                                <div class="card card-body w-75 message" x-data="{message: messages[id]}" @click="showSecret(message)" :class="message['is_self'] ? 'bg-light align-self-end' : ''">
                                     <div>
                                         <span x-text="message.alias" class="fw-bold"></span> -
                                         <small class="p-0" x-text="message.time"></small>

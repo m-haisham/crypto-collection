@@ -6,7 +6,10 @@ function alpineData() {
 
     return {
         socket: null,
-        messages: [],
+
+        order: [],
+        messages: {},
+
         status: {
             connected: false,
             message: 'Attempting to join',
@@ -43,13 +46,10 @@ function alpineData() {
             }
 
             this.socket.onmessage = (e) => {
-                this.messages = [
-                    ...this.messages,
-                    {
-                        ...JSON.parse(e.data),
-                        secret: null,
-                    }
-                ]
+                const message = JSON.parse(e.data);
+
+                this.order = [...this.order, message.id,]
+                this.messages[message.id] = message;
             }
 
             this.socket.onerror = () => {
@@ -71,7 +71,8 @@ function alpineData() {
 
             this.socket.send(JSON.stringify({message}))
         },
-        showSecret: function (message) {
+        showSecret: function (id) {
+            const message = this.messages[id]
             const [original, bitstring] = reveal(message.text)
 
             if (!bitstring) {
