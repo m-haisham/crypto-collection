@@ -49,7 +49,11 @@ function alpineData() {
                 const message = JSON.parse(e.data);
 
                 this.order = [...this.order, message.id,]
-                this.messages[message.id] = message;
+                this.messages[message.id] = {
+                    ...message,
+                    hasSecret: null,
+                    secret: '',
+                };
             }
 
             this.socket.onerror = () => {
@@ -71,17 +75,24 @@ function alpineData() {
 
             this.socket.send(JSON.stringify({message}))
         },
-        showSecret: function (id) {
-            const message = this.messages[id]
-            const [original, bitstring] = reveal(message.text)
+        messageData: function (id) {
+            const self = this;
+            const message = this.messages[id];
 
-            if (!bitstring) {
-                alert('No secret was found in the message.')
-                return;
+            return {
+                message,
+                showSecret: function () {
+                    const [original, bitstring] = reveal(this.message.text)
+
+                    if (!bitstring) {
+                        this.message = {...this.message, hasSecret: false, secret: 'No secret within'};
+                        return;
+                    }
+
+                    const secret = self.cipher.decode(bitstring)
+                    this.message = {...this.message, hasSecret: true, secret}
+                },
             }
-
-            const secret = this.cipher.decode(bitstring)
-            alert(secret)
         },
 
         // UTILITY METHODS
@@ -93,3 +104,4 @@ function alpineData() {
         }
     }
 }
+
