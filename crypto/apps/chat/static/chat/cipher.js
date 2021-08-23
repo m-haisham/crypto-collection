@@ -115,12 +115,7 @@ class StreamCipher {
 }
 
 // source: https://blog.bitsrc.io/how-to-hide-secrets-in-strings-modern-text-hiding-in-javascript-613a9faa5787
-const characters = {
-    "00": "\u200C",
-    "01": "\u200D",
-    10: "\u2060",
-    11: "\u2062",
-};
+const characters = {"00": "\u200C", "01": "\u200D", "10": "\u2060", "11": "\u2062"};
 const invisible = Object.entries(characters).reduce(
     (acc, [key, val]) => ({ ...acc, [key]: val, [val]: key }),
     {}
