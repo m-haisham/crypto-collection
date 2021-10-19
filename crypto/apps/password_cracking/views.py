@@ -23,6 +23,8 @@ def brute_crack(request):
 def dictionary(request):
     form = DictionaryForm(request.POST, request.FILES)
 
+    # TODO default wordlist
+
     if form.is_valid():
         hashed_word = form.cleaned_data['hashed_word']
         enc_type = form.cleaned_data['enc_type']

@@ -23,7 +23,7 @@ class TestPasswordCrackingService(TestCase):
             self.assertEqual(word, self.service.brute_force(encrypt(word), len(word), encrypt).keyword)
 
     def test_dictionary(self):
-        dictionary = ['1', '2', 'three', '4', '8', '10', 'twenty']
+        dictionary = [b'1', b'2', b'three', b'4', b'8', b'10', b'twenty']
 
         def encrypt(value: str) -> str:
             return hashlib.sha1(value.encode('utf-8')).hexdigest()

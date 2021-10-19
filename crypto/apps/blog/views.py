@@ -28,7 +28,7 @@ def dictionary(request, context):
 
 unique_renderers = {
     ('2021-07-14', 'brute-force-attack'): brute,
-    ('2021-07-16', 'dictionary-attack'): dictionary,
+    ('2021-07-17', 'dictionary-attack'): dictionary,
 }
 
 
