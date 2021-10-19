@@ -1,0 +1,13 @@
+{% extends 'base/base.html' %}
+
+{% block body %}
+    {% include 'base/header.html' %}
+
+    <div class="main-wrapper">
+        <article class="blog-post px-3 py-5 p-md-5">
+            {% block article %}{% endblock %}
+        </article>
+    </div>
+
+    {% include 'base/footer.html' %}
+{% endblock %}
