@@ -5,20 +5,27 @@
 
     <div class="main-wrapper">
         <article class="blog-post px-3 py-5 p-md-5">
-            {% block article %}{% endblock %}
+            <div class="container single-col-max-width">
+                <header class="blog-post-header">
+                    <h2 class="title mb-2">{{ current.title }}</h2>
+                    <div class="meta mb-3"><span class="date">Published on {{ current.published }}</span></div>
+                </header>
 
-            <nav class="blog-nav nav nav-justified my-5">
-                {% if previous is not None %}
-                    <a class="nav-link-prev nav-item nav-link rounded-left" href="{% url 'blog:posts' date=previous.published name=previous.link %}">
-                        Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i>
-                    </a>
-                {% endif %}
-                {% if next is not None %}
-                    <a class="nav-link-next nav-item nav-link rounded-right" href="{% url 'blog:posts' date=next.published name=next.link %}">
-                        Next<i class="arrow-next fas fa-long-arrow-alt-right"></i>
-                    </a>
-                {% endif %}
-            </nav>
+                {% block article %}{% endblock %}
+
+                <nav class="blog-nav nav nav-justified my-5">
+                    {% if previous is not None %}
+                        <a class="nav-link-prev nav-item nav-link rounded-left" href="{% url 'blog:posts' date=previous.published name=previous.link %}">
+                            Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i>
+                        </a>
+                    {% endif %}
+                    {% if next is not None %}
+                        <a class="nav-link-next nav-item nav-link rounded-right" href="{% url 'blog:posts' date=next.published name=next.link %}">
+                            Next<i class="arrow-next fas fa-long-arrow-alt-right"></i>
+                        </a>
+                    {% endif %}
+                </nav>
+            </div>
         </article>
     </div>
 
