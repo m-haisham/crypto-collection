@@ -1,5 +1,5 @@
 <header class="header text-center">
-    <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="index.html">Anthony's Blog</a></h1>
+    <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="index.html">Cryptick</a></h1>
 
     <nav class="navbar navbar-expand-lg navbar-dark" >
 
@@ -9,30 +9,66 @@
 
         <div id="navigation" class="collapse navbar-collapse flex-column" >
             <div class="profile-section pt-3 pt-lg-0">
-                <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.png" alt="image" >
-
-                <div class="bio mb-3">Hi, my name is Anthony Doe. Briefly introduce yourself here. You can also provide a link to the about page.<br><a href="about.html">Find out more about me</a></div><!--//bio-->
+                <div class="bio mb-3">This is a group projects that are closely connected to cryptography.</div>
                 <ul class="social-list list-inline py-3 mx-auto">
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-github-alt fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li>
-                </ul><!--//social-list-->
+                    <li class="list-inline-item">
+                        <a href="https://github.com/mensch272">
+                            <img src="https://avatars.githubusercontent.com/u/47662901?v=4" alt="Mensch272" class="img-fluid border-dark rounded-circle" style="margin-top: -0.4rem">
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/maadhmohamed">
+                            <img src="https://avatars.githubusercontent.com/u/44810382?v=4" alt="Maadh" class="img-fluid border-dark rounded-circle" style="margin-top: -0.4rem">
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/Codemachine0101">
+                            <img src="https://avatars.githubusercontent.com/u/53483283?v=4" alt="Codemachine0101" class="img-fluid border-dark rounded-circle" style="margin-top: -0.4rem">
+                        </a>
+                    </li>
+                </ul>
                 <hr>
-            </div><!--//profile-section-->
+            </div>
 
-            <ul class="navbar-nav flex-column text-start">
-                <li class="nav-item">
-                    <a class="nav-link active" href="index.html"><i class="fas fa-home fa-fw me-2"></i>Blog Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="blog-post.html"><i class="fas fa-bookmark fa-fw me-2"></i>Blog Post</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw me-2"></i>About Me</a>
-                </li>
-            </ul>
+            {% with view_name=request.resolver_match.view_name %}
+                <ul class="navbar-nav flex-column text-start">
+                    <li class="nav-item">
+                        <a class="nav-link {% if view_name == 'home' %}active{% endif %}" href="index.html">
+                            <i class="fas fa-home fa-fw me-2"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog-post.html">
+                            <i class="fas fa-grip-horizontal fa-fw me-2"></i>Hamming Code
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            <i class="fas fa-credit-card fa-fw me-2"></i>Luhn Algorithm
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            <i class="fas fa-lock fa-fw me-2"></i>Brute-Force
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            <i class="fas fa-book fa-fw me-2"></i>Dictionary
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            <i class="fas fa-user-secret fa-fw me-2"></i>Steganography Chat
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            <i class="fas fa-user fa-fw me-2"></i>About Us
+                        </a>
+                    </li>
+                </ul>
+            {% endwith %}
 
             <div class="my-2 my-md-3">
                 <a class="btn btn-primary" href="https://themes.3rdwavemedia.com/" target="_blank">Get in Touch</a>
