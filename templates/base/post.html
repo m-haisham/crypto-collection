@@ -1,5 +1,11 @@
 {% extends 'base/base.html' %}
 
+{% block head %}
+    <title>Blog | {{ current.title }}</title>
+    <meta name="description" content="{{ current.description }}">
+    {% block css %}{% endblock %}
+{% endblock %}
+
 {% block body %}
     {% include 'base/header.html' %}
 

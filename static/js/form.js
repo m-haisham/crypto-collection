@@ -17,9 +17,11 @@ document.querySelectorAll('form[data-partial]')
             e.target.getAttribute('action'),
         )
         xhr.onabort = function (event) {
+            setInnerHTML('')
             setErrorHidden(false)
             setWaitingHidden(true)
         }
+
         xhr.onload = function (event) {
             switch (event.target.status) {
                 case 200:
