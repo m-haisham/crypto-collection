@@ -44,7 +44,7 @@ def posts(request, date: str, name: str):
     context = {
         'current': blog_posts[post_index],
         'previous': blog_posts[post_index - 1] if post_index > 0 else None,
-        'next': blog_posts[post_index + 1] if post_index <= len(blog_posts) else None,
+        'next': blog_posts[post_index + 1] if post_index <= len(blog_posts) - 2 else None,
     }
 
     try:
