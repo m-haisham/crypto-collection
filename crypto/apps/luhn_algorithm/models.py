@@ -18,3 +18,5 @@ class CreditCardIssuer:
     unionpay = 9
     diners = 10
     jcb = 11
+
+    values = list(range(1, 12))

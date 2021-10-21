@@ -4,31 +4,76 @@
     <title>Chat | Gateway</title>
 {% endblock %}
 
-{% block content %}
-
-    <!-- Navigation-->
-    {% include 'base/navigation.html' %}
-
-    <header class="masthead vh-100 m-0">
-        <div class="container position-relative px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7 bg-light rounded p-5">
-                    <form action="" method="get">
+{% block body %}
+    <div class="modal fade" id="joinRoomModal" tabindex="-1" aria-labelledby="joinRoomModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="" method="get">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="joinRoomModalLabel">Join new room</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
                         <div class="mb-3">
-                          <label for="roomName" class="form-label">Room</label>
-                          <input type="text" class="form-control" id="roomName" name="room">
+                            <label for="roomName" class="form-label">Room</label>
+                            <input type="text" class="form-control" id="roomName" name="room">
                         </div>
                         <div class="mb-3">
-                          <label for="personAlias" class="form-label">Alias (Optional)</label>
-                          <input type="text" class="form-control" id="personAlias" name="alias">
+                            <label for="personAlias" class="form-label">Alias (Optional)</label>
+                            <input type="text" class="form-control" id="personAlias" name="alias">
                         </div>
-                        <button type="submit" class="btn btn-primary">ENTER</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Join</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <header class="header text-center">
+        <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="index.html">Secure Chat</a></h1>
+
+        <nav class="navbar navbar-expand-lg navbar-dark">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation"
+                    aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div id="navigation" class="collapse navbar-collapse flex-column">
+                <div class="profile-section pt-3 pt-lg-0">
+                    <div class="bio mb-3">This is a secure realtime chat application that optionally uses both
+                        steganography and cryptography.
+                    </div>
+                    <hr>
+                </div>
+
+                <div class="d-flex flex-column align-items-center w-100">
+                    <form action="">
+                        <label for="chatSecret" class="form-label">Secret Key</label>
+                        <input type="text" id="chatSecret" class="form-control">
                     </form>
+
+                    <hr>
+
+                    <div class="d-flex flex-column align-items-center w-75">
+                        Rooms
+                        <button class="btn bg-white text-dark shadow-sm rounded w-75 p-2 fw-bold">
+                            lobby
+                        </button>
+                    </div>
+                </div>
+
+                <div class="my-2 my-md-3">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#joinRoomModal">Join
+                    </button>
                 </div>
             </div>
-        </div>
+        </nav>
     </header>
-
 {% endblock %}
 
 {% block scripts %}

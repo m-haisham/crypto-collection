@@ -1,93 +1,31 @@
-{% extends 'base/main.html' %}
+{% extends 'base/post.html' %}
 {% load static %}
 
-{% block head %}
-    <title>Blog | Brute-Force Attack</title>
-{% endblock %}
-
-{% block heading %}
-    <h1>Brute-Force Attack</h1>
-    <span class="subheading">Not 1111? How about 1112, or is it 1113, must be 1114...</span>
-    <p class="meta">
-        Posted by
-        <a href="https://github.com/mensch272">Mensch272</a>
-        on July 14, 2021
+{% block article %}
+    <p>
+        A brute-force attack uses trial-and-error to guess the passwords or passphrases. It is the digital
+        equivalent of trying every key in your key ring, and eventually finding the right one.
     </p>
-{% endblock %}
-{% block background %}{% static 'assets/background/numbers.jpg' %}{% endblock %}
-
-{% block main %}
-    <article class="mb-4">
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <p>
-                        A brute-force attack uses trial-and-error to guess the passwords or passphrases. It is the digital
-                        equivalent of trying every key in your key ring, and eventually finding the right one.
-                    </p>
-                    <p>
-                        A brute-force attack can, in theory, be used to decrypt any encrypted key. However in practice this is not
-                        feasible. For longer passwords such an attack may take years to guess, as the length of the password
-                        increases the number possible combinations increase exponentially.
-                    </p>
-                    <p>
-                        However for shorter password it is still a simple and reliable method to decrypt a password. And for
-                        longer passwords other methods like <a href="{% url 'password_cracking:dictionary' %}">dictionary attack</a>
-                        are used.
-                    </p>
+    <p>
+        A brute-force attack can, in theory, be used to decrypt any encrypted key. However in practice this is not
+        feasible. For longer passwords such an attack may take years to guess, as the length of the password
+        increases the number possible combinations increase exponentially.
+    </p>
+    <p>
+        However for shorter password it is still a simple and reliable method to decrypt a password. And for
+        longer passwords other methods like <a href="{% url 'password_cracking:dictionary' %}">dictionary attack</a>
+        are used.
+    </p>
 
 
-                    <h2 class="section-heading pb-3">Sample Application</h2>
-                    <p>
-                        The below sample application generates all the possible combinations for lowercase ascii with the number digits
-                        for a maximum length of 6 characters. However, please be aware that 6 character hashes may take some time
-                        to decrypt.
-                    </p>
+    <h3 class="my-3">Sample Application</h3>
+    <p>
+        The below sample application generates all the possible combinations for lowercase ascii with the number digits
+        for a maximum length of 6 characters. However, please be aware that 6 character hashes may take some time
+        to decrypt.
+    </p>
 
-                    {# Form #}
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <form action="{% url 'password_cracking:brute_crack' %}" method="post"
-                                data-partial="bruteResponse" data-partial-waiting="bruteWaiting">
-                                {% csrf_token %}
-                                <div class="mb-3">
-                                    <label for="bruteHashInput" class="form-label">Hash</label>
-                                    <input aria-describedby="encode" class="form-control" name="hash"
-                                           id="bruteHashInput" type="text" pattern="[0-9a-f]+" data-block-pattern required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="bruteEncryption" class="form-label">Encryption</label>
-                                    <select name="encryption" id="bruteEncryption" class="form-select">
-                                        {% for hash_type in hash_types %}
-                                            <option {% if forloop.counter0 == 0 %}selected{% endif %}>{{ hash_type }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-secondary">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-
-                    {# Waiting #}
-                    {% include 'password_cracking/waiting_card.html' %}
-
-                    {# Response #}
-                    <div id="bruteResponse"></div>
-
-                    <!-- Divider-->
-                    <hr class="my-4" />
-
-                    <!-- Navigation -->
-                    <div class="d-flex justify-content-between">
-                        <a href="{% url 'blog:posts' date='2021-07-12' name='luhn-algorithm' %}"
-                           class="btn btn-primary">PREVIOUS</a>
-                        <a href="{% url 'blog:posts' date='2021-07-17' name='dictionary-attack' %}"
-                           class="btn btn-primary">NEXT</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </article>
+    {% include 'password_cracking/brute_logic.html' %}
 {% endblock %}
 
 {% block scripts %}

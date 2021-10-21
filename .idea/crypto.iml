@@ -14,12 +14,13 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Poetry (crypto)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="ade0f1b9e0" level="application" />
     <orderEntry type="library" name="all" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="seedrandom" level="application" />
+    <orderEntry type="library" name="highlight" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

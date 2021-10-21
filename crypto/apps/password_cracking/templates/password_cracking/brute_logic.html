@@ -1,0 +1,29 @@
+{# Form #}
+<div class="card shadow-sm mb-3">
+    <div class="card-body">
+        <form action="{% url 'password_cracking:brute_crack' %}" method="post"
+              data-partial="bruteResponse" data-partial-waiting="bruteWaiting">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="bruteHashInput" class="form-label">Hash</label>
+                <input aria-describedby="encode" class="form-control" name="hash"
+                       id="bruteHashInput" type="text" pattern="[0-9a-f]+" data-block-pattern required>
+            </div>
+            <div class="mb-3">
+                <label for="bruteEncryption" class="form-label">Encryption</label>
+                <select name="encryption" id="bruteEncryption" class="form-select">
+                    {% for hash_type in hash_types %}
+                        <option {% if forloop.counter0 == 0 %}selected{% endif %}>{{ hash_type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-secondary">Submit</button>
+        </form>
+
+        {# Waiting #}
+        {% include 'password_cracking/waiting_card.html' %}
+
+        {# Response #}
+        <div id="bruteResponse"></div>
+    </div>
+</div>

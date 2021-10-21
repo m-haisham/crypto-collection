@@ -1,23 +1,21 @@
-<div class="card mb-4">
-    <div class="card-header py-3 bg-{{ is_cracked|yesno:'success,danger' }}">
-        <h6 class="m-0 font-weight-bold text-white">{{ is_cracked|yesno:'Found,Not Found' }}</h6>
-    </div>
+<hr>
+<div class="alert alert-{{ is_cracked|yesno:'success py-0,danger' }}">
     {% if is_cracked %}
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
-                <span class="font-weight-bold">{{ keyword }}</span>
-                <button type="button" class="btn btn-sm" onclick="navigator.clipboard.writeText('{{ keyword }}')">
-                    <i class="fas fa-copy"></i>
-                </button>
-            </div>
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="font-weight-bold">{{ keyword }}</span>
+            <button type="button" class="btn btn-sm" onclick="navigator.clipboard.writeText('{{ keyword }}')">
+                <i class="fas fa-copy"></i>
+            </button>
         </div>
+    {% else %}
+        Not Found
     {% endif %}
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-            <i class="fa fa-clock me-3"></i>{{ time_taken }}
-        </li>
-        <li class="list-group-item">
-            <i class="fa fa-layer-group me-3"></i>{{ processed_count }} words
-        </li>
-    </ul>
 </div>
+<ul class="list-group">
+    <li class="list-group-item">
+        <i class="fa fa-clock me-3"></i>{{ time_taken }}
+    </li>
+    <li class="list-group-item">
+        <i class="fa fa-layer-group me-3"></i>{{ processed_count }} words
+    </li>
+</ul>

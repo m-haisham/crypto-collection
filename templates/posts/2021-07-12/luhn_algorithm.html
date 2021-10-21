@@ -1,90 +1,44 @@
-{% extends 'base/main.html' %}
+{% extends 'base/post.html' %}
 {% load static %}
 
-{% block head %}
-    <title>Blog | Luhn Algorithm</title>
-{% endblock %}
-
-{% block heading %}
-    <h1>Luhn Algorithm</h1>
-    <span class="subheading">Validate your credit card number</span>
-    <p class="meta">
-        Posted by
-        <a href="https://github.com/mensch272">Mensch272</a>
-        on July 12, 2021
+{% block article %}
+    <p>
+        Luhn algorithm or Luhn formula is a simple checksum formula used to validate a variety of
+        identification numbers such as, credit card numbers and IMEI numbers.
     </p>
-{% endblock %}
-{% block background %}{% static 'assets/background/creditcard.jpg' %}{% endblock %}
+    <p>
+        It was named after its creator, IBM scientist
+        <a href="https://en.wikipedia.org/wiki/Hans_Peter_Luhn">Hans Peter Luhn</a>.
+    </p>
 
-{% block main %}
-    <article class="mb-4">
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <p>
-                        Luhn algorithm or Luhn formula is a simple checksum formula used to validate a variety of
-                        identification numbers such as, credit card numbers and IMEI numbers.
-                    </p>
-                    <p>
-                        It was named after its creator, IBM scientist
-                        <a href="https://en.wikipedia.org/wiki/Hans_Peter_Luhn">Hans Peter Luhn</a>.
-                    </p>
+    {% include 'luhn_algorithm/logic.html' %}
 
-                    <!-- Validate Card -->
-                    <h2 class="section-heading pb-3">Validate</h2>
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <form action="{% url 'luhn_algorithm:check' %}" method="post"
-                                  data-partial="validityCheckResult">
-                                {% csrf_token %}
-                                <div class="mb-3">
-                                    <label for="card-check-input" class="form-label">Credit Card Number</label>
-                                    <input aria-describedby="credit card number" class="form-control" name="card-number" id="card-check-input"
-                                           type="text" minlength="16" pattern="\d+" data-block-pattern>
-                                </div>
-                                <button type="submit" class="btn btn-secondary">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-
-                    {# Error #}
-                    <div class="card mb-3" id="validityCheckError" hidden>
-                        <div class="card-header py-3 bg-danger">
-                            <h6 class="m-0 font-weight-bold text-white">Error</h6>
-                        </div>
-                        <div class="card-body">
-                            Uh oh. Something went wrong. Please try again.
-                        </div>
-                    </div>
-
-                    {# Result #}
-                    <div id="validityCheckResult"></div>
-
+    <div class="accordion shadow-sm mt-4" id="luhn-other-accordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                        aria-expanded="false" aria-controls="collapseOne">
+                    Other
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                 data-bs-parent="#luhn-other-accordion">
+                <div class="accordion-body">
                     <!-- Algorithm Information -->
-                    <h2 class="section-heading pb-3">Other</h2>
-                    <h5>Major Industry Identifier</h5>
+                    <h6>Major Industry Identifier</h6>
                     <p>The first digit of a credit card number represent the category of entity which issued the
                         card.</p>
-                    <h5>Issuer identification number</h5>
+                    <h6>Issuer identification number</h6>
                     <p>The first six digits of a card number identify the institution that issued the card.</p>
-                    <h5>Personal Account identifier</h5>
+                    <h6>Personal Account identifier</h6>
                     <p>From digit no. 7 to final minus 1, indicate individual account identifier.</p>
                     <p>The last digit is the checksum number.</p>
-
-                    <!-- Divider-->
-                    <hr class="my-4" />
-
-                    <!-- Navigation -->
-                    <div class="d-flex justify-content-between">
-                        <a href="{% url 'blog:posts' date='2021-07-10' name='hamming-code' %}"
-                           class="btn btn-primary">PREVIOUS</a>
-                        <a href="{% url 'blog:posts' date='2021-07-14' name='brute-force-attack' %}"
-                           class="btn btn-primary">NEXT</a>
-                    </div>
                 </div>
             </div>
         </div>
-    </article>
+    </div>
+
+
 {% endblock %}
 
 {% block scripts %}

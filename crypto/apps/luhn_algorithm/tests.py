@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from .models import CreditCardIssuer as Issuer
-from .service import LuhnAlgorithm, CreditCardService
+from .service import validate_credit_card, CreditCardService, luhn_algorithm
 
 
 class TestLuhnAlgorithm(TestCase):
@@ -9,7 +9,7 @@ class TestLuhnAlgorithm(TestCase):
     def test_check_valid(self):
         valid = [
             "4024007112891345",
-            "4916794754360611",
+            "4556374524048633",
             "4024007163901440375",
             "5553415465036283",
             "5121595262320072",
@@ -17,7 +17,7 @@ class TestLuhnAlgorithm(TestCase):
         ]
 
         for number in valid:
-            self.assertTrue(LuhnAlgorithm.check_valid(number))
+            self.assertTrue(validate_credit_card(number))
 
         invalid = [
             "5121595262310072",
@@ -27,7 +27,7 @@ class TestLuhnAlgorithm(TestCase):
         ]
 
         for number in invalid:
-            self.assertFalse(LuhnAlgorithm.check_valid(number))
+            self.assertFalse(validate_credit_card(number))
 
 
 class TestCreditCardService(TestCase):
@@ -91,3 +91,12 @@ class TestCreditCardService(TestCase):
     def test_identify_type(self):
         for number, card in self.cards.items():
             self.assertEqual(card, CreditCardService.identify_type(number))
+
+    def test_generate_card_number(self):
+        for issuer in Issuer.values:
+            for i in range(5):
+                number = CreditCardService.generate_card_number(issuer)
+
+                self.assertTrue(validate_credit_card(number))
+                self.assertEqual(issuer, CreditCardService.identify_type(number))
+                self.assertTrue(len(number) >= 12)

@@ -1,24 +1,28 @@
+import random
 import re
 from typing import List, Union, Optional
+
+import rstr
 
 from crypto.apps.luhn_algorithm.models import CreditCardIssuer as Issuer
 
 
-class LuhnAlgorithm:
+def luhn_algorithm(sequence: Union[str, List[int]]):
+    if type(sequence) == str:
+        sequence = [int(digit) for digit in sequence]
 
-    @staticmethod
-    def check_valid(sequence: Union[str, List[int]]) -> bool:
-        if type(sequence) == str:
-            sequence = [int(digit) for digit in sequence]
+    for i in range(len(sequence) % 2, len(sequence), 2):
+        value = sequence[i] * 2
+        if value > 9:
+            value = sum([int(digit) for digit in str(value)])
 
-        for i in range(len(sequence) % 2, len(sequence), 2):
-            value = sequence[i] * 2
-            if value > 9:
-                value = sum([int(digit) for digit in str(value)])
+        sequence[i] = value
 
-            sequence[i] = value
+    return sum(sequence) % 10
 
-        return sum(sequence) % 10 == 0
+
+def validate_credit_card(sequence: Union[str, List[int]]) -> bool:
+    return luhn_algorithm(sequence) == 0
 
 
 class CreditCardService:
@@ -56,3 +60,22 @@ class CreditCardService:
     @staticmethod
     def user_identifier(sequence: str):
         return sequence[6:-1], sequence[-1]
+
+    @classmethod
+    def generate_card_number(cls, issuer: int) -> str:
+        number = rstr.xeger(cls.type_map[issuer])
+        if len(number) >= 18:
+            number = number[:18]
+        elif len(number) < 12:
+            diff = 12 - len(number)
+            for _ in range(diff):
+                number += random.choice(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
+
+        remainder = luhn_algorithm(number)
+        if remainder == 0:
+            return number
+
+        number = list(number)
+        number[-1] = str((int(number[-1]) - remainder) % 10)
+
+        return ''.join(number)
