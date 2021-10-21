@@ -1,5 +1,6 @@
 import hashlib
 import itertools
+import re
 from dataclasses import dataclass
 from datetime import timedelta, datetime
 from string import ascii_lowercase, digits
@@ -49,7 +50,8 @@ class CrackingService:
         count = 1
         for word in options:
             if unknown_hash == hash_function(word):
-                return CrackingResult(keyword=word.decode('utf-8'), time_taken=datetime.now() - start_time, processed_count=count)
+                return CrackingResult(keyword=word.decode('utf-8'), time_taken=datetime.now() - start_time,
+                                      processed_count=count)
 
             count += 1
 
@@ -65,3 +67,10 @@ class CrackingService:
                 return result
 
         return result
+
+
+hash_regex = re.compile(r'[0-9a-fA-F]+')
+
+
+def validate_hash(hash: str) -> bool:
+    return bool(hash_regex.fullmatch(hash))

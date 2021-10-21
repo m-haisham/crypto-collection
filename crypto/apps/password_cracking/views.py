@@ -1,12 +1,16 @@
 from django.template.response import SimpleTemplateResponse
 
 from .forms import DictionaryForm
-from .services import CrackingService
+from .services import CrackingService, validate_hash
 
 
 def brute_crack(request):
     hashed_word = request.POST['hash']
     hashed_type = request.POST['encryption']
+
+    if not validate_hash(hashed_word):
+        return SimpleTemplateResponse(
+            'password_cracking/error_response.html', {'error': 'The provided hash is invalid.'})
 
     service = CrackingService()
     result = service.brute_force(hashed_word, 6, service.get_encryption_function(hashed_type))
@@ -29,6 +33,10 @@ def dictionary(request):
         hashed_word = form.cleaned_data['hashed_word']
         enc_type = form.cleaned_data['enc_type']
         dict_file = form.cleaned_data['dict_file']
+
+        if not validate_hash(hashed_word):
+            return SimpleTemplateResponse(
+                'password_cracking/error_response.html', {'error': 'The provided hash is invalid.'})
 
         def words():
             """return words of the file as a generator"""
