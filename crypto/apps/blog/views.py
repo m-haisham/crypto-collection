@@ -6,6 +6,7 @@ from crypto.apps.password_cracking.forms import DictionaryForm
 from crypto.apps.password_cracking.services import CrackingService
 
 from .posts import blog_posts, posts_index
+from ..luhn_algorithm.views import luhn
 
 
 def brute(request, context):
@@ -27,6 +28,7 @@ def dictionary(request, context):
 
 
 unique_renderers = {
+    ('2021-07-12', 'luhn-algorithm'): luhn,
     ('2021-07-14', 'brute-force-attack'): brute,
     ('2021-07-17', 'dictionary-attack'): dictionary,
 }
