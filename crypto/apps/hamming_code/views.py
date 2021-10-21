@@ -7,18 +7,26 @@ def encode(request):
     service = HammingService()
     sequence = request.POST['sequence'][::-1]
 
+    if len(sequence) < 4:
+        return SimpleTemplateResponse(
+            'hamming_code/error.html', {'error': 'The binary sequence must have length greater than or equal to 4'})
+
     context = {
         'even': service.encode(sequence, True)[::-1],
         'odd': service.encode(sequence, False)[::-1],
     }
 
-    return SimpleTemplateResponse('hamming/encoded.html', context)
+    return SimpleTemplateResponse('hamming_code/encoded.html', context)
 
 
 def decode(request):
     service = HammingService()
     sequence = request.POST['sequence'][::-1]
     is_even = request.POST['check'] == 'even'
+
+    if len(sequence) < 7:
+        return SimpleTemplateResponse(
+            'hamming_code/error.html', {'error': 'The binary sequence must have length greater than or equal to 7'})
 
     correct, error_position = service.detect_error(sequence, is_even)
     data = service.decode(correct)
@@ -32,4 +40,4 @@ def decode(request):
         'data': data[::-1],
     }
 
-    return SimpleTemplateResponse('hamming/decoded.html', context)
+    return SimpleTemplateResponse('hamming_code/decoded.html', context)

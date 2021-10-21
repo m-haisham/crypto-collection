@@ -1,8 +1,8 @@
 
 function alpineData() {
     const messageInput = document.querySelector('input[name="message"]')
-    const keyInput = document.querySelector('input[name="message"]')
-    const secretInput = document.querySelector('input[name="message"]')
+    const keyInput = document.querySelector('input[name="key"]')
+    const secretInput = document.querySelector('input[name="secret"]')
 
     function setObserver() {
         const chatNode = document.querySelector('#messages')
