@@ -4,19 +4,9 @@ function alpineData() {
     const keyInput = document.querySelector('input[name="key"]')
     const secretInput = document.querySelector('input[name="secret"]')
 
-    function isBottom() {
-      const { scrollHeight, scrollTop, clientHeight } = document.scrollingElement;
-      const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
-      return distanceFromBottom < 100; // adjust the number 20 yourself
-    }
-
     function setObserver() {
         const chatNode = document.querySelector('#messages')
         function callback(mutations) {
-            if (!isBottom()) {
-                return;
-            }
-
             window.scrollTo({
                 top: document.body.scrollHeight,
                 behavior: 'instant',
