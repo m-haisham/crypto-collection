@@ -2,17 +2,15 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.template import TemplateDoesNotExist
 
-from crypto.apps.password_cracking.forms import DictionaryForm
-from crypto.apps.password_cracking.services import CrackingService
-
 from .posts import blog_posts, posts_index
+from ..password_cracking.forms import DictionaryForm, BruteForm
 from ..luhn_algorithm.views import luhn
 
 
 def brute(request, context):
     context = {
         **context,
-        'hash_types': CrackingService.encryption_types,
+        'form': BruteForm(),
     }
 
     return render(request, 'posts/2021-07-14/brute_force_attack.html', context)

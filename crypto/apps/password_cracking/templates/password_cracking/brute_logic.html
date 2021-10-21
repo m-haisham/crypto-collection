@@ -1,21 +1,16 @@
-{# Form #}
+{% load widget_tweaks %}
 <div class="card shadow-sm mb-3">
     <div class="card-body">
         <form action="{% url 'password_cracking:brute_crack' %}" method="post"
               data-partial="bruteResponse" data-partial-waiting="bruteWaiting">
             {% csrf_token %}
             <div class="mb-3">
-                <label for="bruteHashInput" class="form-label">Hash</label>
-                <input aria-describedby="encode" class="form-control" name="hash"
-                       id="bruteHashInput" type="text" pattern="[0-9a-f]+" data-block-pattern required>
+                <label for="{{ form.hashed_word.id_for_label }}" class="form-label">Hash</label>
+                {% render_field form.hashed_word class="form-control" pattern="[0-9a-f]+" data-block-pattern=True %}
             </div>
             <div class="mb-3">
-                <label for="bruteEncryption" class="form-label">Encryption</label>
-                <select name="encryption" id="bruteEncryption" class="form-select">
-                    {% for hash_type in hash_types %}
-                        <option {% if forloop.counter0 == 0 %}selected{% endif %}>{{ hash_type }}</option>
-                    {% endfor %}
-                </select>
+                <label for="{{ form.enc_type.id_for_label }}" class="form-label">Encryption</label>
+                {% render_field form.enc_type class='form-select' %}
             </div>
             <button type="submit" class="btn btn-secondary">Submit</button>
         </form>

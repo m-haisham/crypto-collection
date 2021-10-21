@@ -2,25 +2,31 @@ from pathlib import Path
 
 from django.template.response import SimpleTemplateResponse
 
-from .forms import DictionaryForm
+from .forms import DictionaryForm, BruteForm
 from .services import CrackingService
 from django.contrib.staticfiles.storage import staticfiles_storage
 
 
 def brute_crack(request):
-    hashed_word = request.POST['hash']
-    hashed_type = request.POST['encryption']
+    form = BruteForm(request.POST, request.FILES)
 
-    service = CrackingService()
-    result = service.brute_force(hashed_word, 6, service.get_encryption_function(hashed_type))
-    context = {
-        "keyword": result.keyword,
-        "is_cracked": result.is_cracked,
-        'time_taken': result.time_taken,
-        'processed_count': result.processed_count,
-    }
+    if form.is_valid():
 
-    return SimpleTemplateResponse('password_cracking/response.html', context)
+        hashed_word = form.cleaned_data.get('hashed_word')
+        hashed_type = form.cleaned_data.get('enc_type')
+
+        service = CrackingService()
+        result = service.brute_force(hashed_word, 6, service.get_encryption_function(hashed_type))
+        context = {
+            "keyword": result.keyword,
+            "is_cracked": result.is_cracked,
+            'time_taken': result.time_taken,
+            'processed_count': result.processed_count,
+        }
+
+        return SimpleTemplateResponse('password_cracking/response.html', context)
+    else:
+        return SimpleTemplateResponse('password_cracking/error_response.html', {'error': form.errors['hashed_word'][0]})
 
 
 def dictionary(request):
