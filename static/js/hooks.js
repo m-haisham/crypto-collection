@@ -11,7 +11,6 @@ function useInnerHTML(id) {
 
 function useHidden(id) {
     let element = document.getElementById(id);
-    console.log({id, element})
 
     return [
         () => element == null || element.getAttribute('hidden') != null,
