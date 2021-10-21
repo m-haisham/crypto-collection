@@ -19,7 +19,7 @@
                                 <div class="card card-body w-75 message"
                                      x-data="messageData(id)"
                                      @click="showSecret(message)"
-                                     :class="message['is_self'] ? 'bg-light align-self-end' : ''"
+                                     :class="message['is_self'] ? 'align-self-end' : ''"
                                 >
                                     <div>
                                         <span x-text="message.alias" class="fw-bold"></span> -
@@ -42,11 +42,11 @@
                                 </button>
                             </div>
                             <div class="row g-3">
-                                <div class="col-2">
+                                <div class="col-12 col-md-2">
                                     <input x-model="inputs.key" type="text" class="form-control col-2"
                                            name="key" placeholder="key" @keydown.enter="focus.secret()">
                                 </div>
-                                <div class="col">
+                                <div class="col-12 col-md-10">
                                     <input x-model="inputs.secret" type="text" class="form-control col" name="secret"
                                            placeholder="Secret message" @keydown.enter="focus.message()">
                                 </div>
