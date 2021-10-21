@@ -55,4 +55,4 @@ def dictionary(request):
 
         return SimpleTemplateResponse('password_cracking/response.html', context)
     else:
-        return SimpleTemplateResponse('password_cracking/error_response.html', {'error': form.errors})
+        return SimpleTemplateResponse('password_cracking/error_response.html', {'error': form.errors['hashed_word'][0]})

@@ -2,7 +2,7 @@ import hashlib
 
 import pytest
 
-from .services import CrackingService, validate_hash
+from .services import CrackingService, hash_regex
 
 
 @pytest.fixture
@@ -51,6 +51,7 @@ def test_dictionary(service):
     ('a443711ec4f61c3f2d0211d496a2tos1994', False),
     ('b6f2361018c13ac568794f4abe429', True),
     ('b266a99402546149d337a69788449777', True),
+    ('something else', False),
 ])
 def test_validate_hash(hash, expected):
-    assert validate_hash(hash) == expected
+    assert bool(hash_regex.fullmatch(hash)) == expected

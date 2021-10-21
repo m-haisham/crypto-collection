@@ -6,6 +6,8 @@ from datetime import timedelta, datetime
 from string import ascii_lowercase, digits
 from typing import Iterable, Optional, Callable
 
+hash_regex = re.compile(r'^[0-9a-fA-F]+$')
+
 
 @dataclass
 class CrackingResult:
@@ -67,10 +69,3 @@ class CrackingService:
                 return result
 
         return result
-
-
-hash_regex = re.compile(r'[0-9a-fA-F]+')
-
-
-def validate_hash(hash: str) -> bool:
-    return bool(hash_regex.fullmatch(hash))
