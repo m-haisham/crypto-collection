@@ -19,18 +19,12 @@ blog_posts = [
         link='luhn-algorithm',
     ),
     Post(
-        title='Brute-Force Attack',
-        description='A brute-force attack uses trial-and-error to guess the passwords or passphrases. It is the '
-                    'digital equivalent of trying every key in your key ring, and eventually finding the right one...',
+        title='Password Cracking',
+        description='password cracking is the process of recovering passwords from data that has been stored in or '
+                    'transmitted by a computer system in scrambled form. Some common approaches among them are '
+                    'brute-force attack and dictionary attack.',
         published=date(2021, 7, 14),
-        link='brute-force-attack',
-    ),
-    Post(
-        title='Dictionary Attack',
-        description='A dictionary attack is a brute-force technique where the algorithm runs through a list of '
-                    'predefined words and phrases, such as those from a dictionary or previous data breaches...',
-        published=date(2021, 7, 17),
-        link='dictionary-attack',
+        link='password-cracking',
     ),
     Post(
         title='Hiding Secrets in Strings',

@@ -5,6 +5,7 @@ from django.template import TemplateDoesNotExist
 from .posts import blog_posts, posts_index
 from ..password_cracking.forms import DictionaryForm, BruteForm
 from ..luhn_algorithm.views import luhn
+from ..password_cracking.views import cracking_renderer
 
 
 def brute(request, context):
@@ -27,6 +28,7 @@ def dictionary(request, context):
 
 unique_renderers = {
     ('2021-07-12', 'luhn-algorithm'): luhn,
+    ('2021-07-14', 'password-cracking'): cracking_renderer,
     ('2021-07-14', 'brute-force-attack'): brute,
     ('2021-07-17', 'dictionary-attack'): dictionary,
 }

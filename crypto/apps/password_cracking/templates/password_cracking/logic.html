@@ -1,0 +1,96 @@
+{% load widget_tweaks %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="crackingTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="hash-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+                        role="tab" aria-controls="home" aria-selected="true">Hash
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="brute-force-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                        type="button"
+                        role="tab" aria-controls="profile" aria-selected="false">Brute-Force
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="dictionary-tab" data-bs-toggle="tab" data-bs-target="#contact"
+                        type="button"
+                        role="tab" aria-controls="contact" aria-selected="false">Dictionary
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content" id="crackingTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="hash-tab">
+                {# Hash Form #}
+                <form action="{% url 'password_cracking:hash' %}    " method="post" class="mt-3"
+                      data-partial="hash-result"
+                      data-partial-error="hash-error">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ hform.word.id_for_label }}" class="form-label">Word</label>
+                        {% render_field hform.word class='form-control' %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ hform.enc_type.id_for_label }}" class="form-label">Encryption</label>
+                        {% render_field hform.enc_type class='form-select' %}
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Submit</button>
+                </form>
+
+                {# Hash Error #}
+                <div id="hash-error"></div>
+
+                {# Hash Result #}
+                <div id="hash-result"></div>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="brute-force-tab">
+                <form action="{% url 'password_cracking:brute_crack' %}" method="post" data-partial="brute-result"
+                      data-partial-waiting="brute-waiting" class="mt-3">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ bform.hashed_word.id_for_label }}" class="form-label">Hash</label>
+                        {% render_field bform.hashed_word class="form-control" pattern="[0-9a-f]+" data-block-pattern=True %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ bform.enc_type.id_for_label }}" class="form-label">Encryption</label>
+                        {% render_field bform.enc_type class='form-select' %}
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Submit</button>
+                </form>
+
+                {# Waiting #}
+                {% include 'password_cracking/waiting_card.html' with id='brute-waiting' %}
+
+                {# Response #}
+                <div id="brute-result"></div>
+            </div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="dictionary-tab">
+                <form action="{% url 'password_cracking:dictionary' %}" method="post" data-partial="dict-result"
+                      data-partial-waiting="dict-waiting" class="mt-3">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ dform.hashed_word.id_for_label }}" class="form-label">Hash</label>
+                        {% render_field dform.hashed_word class="form-control" pattern="[0-9a-f]+" data-block-pattern=True %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ dform.enc_type.id_for_label }}" class="form-label">Encryption</label>
+                        {% render_field dform.enc_type class="form-select" %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ dform.dict_file.id_for_label }}" class="form-label">Dictionary</label>
+                        {% render_field dform.dict_file class='form-control' accept='text/plain' %}
+                        <small class="text-muted">Leave empty to use default <a href="">wordlist.</a></small>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Submit</button>
+                </form>
+
+                {# Waiting #}
+                {% include 'password_cracking/waiting_card.html' with id='dict-waiting' %}
+
+                {# Response #}
+                <div id="dict-result"></div>
+            </div>
+        </div>
+    </div>
+</div>
