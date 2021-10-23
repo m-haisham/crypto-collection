@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+
+{% block head %}
+    <title>Cryptick | About</title>
+    <meta name="description"
+          content="This is a collaboratory work designed between Mensch272, CodeMachine0101, and Maadh.">
+    {% block css %}{% endblock %}
+{% endblock %}
+
+{% block body %}
+    {% include 'base/header.html' %}
+
+    <div class="main-wrapper">
+        <article class="blog-post px-3 py-5 p-md-5">
+            <div class="container single-col-max-width">
+                <header class="blog-post-header mb-3">
+                    <h2 class="title mb-2">About</h2>
+                </header>
+
+                <h5 class="my-3">Contributors</h5>
+
+                {% for contrib in contributors %}
+                    <div class="card shadow mb-3">
+                        <div class="card-body row align-items-stretch gap-1 gap-md-3 p-4">
+                            <div class="col-12 col-md-3 mb-3 mb-md-0 d-flex align-items-center justify-content-center">
+                                <img src="{{ contrib.thumbnail }}" alt="{{ contrib.name }} profile image"
+                                     class="img-fluid rounded-circle shadow-sm">
+                            </div>
+                            <div class="col d-flex flex-column justify-content-center">
+                                <h5 class="card-title">{{ contrib.name }}</h5>
+                                <div class="meta mb-3">
+                                    <a href="{{ contrib.profile }}" class="text-link">{{ contrib.alias }}</a>
+                                    • {{ contrib.id }}
+                                </div>
+                                <p>{{ contrib.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </article>
+    </div>
+
+    {% include 'base/footer.html' %}
+{% endblock %}
