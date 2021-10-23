@@ -17,10 +17,19 @@
                     <h2 class="title mb-2">About</h2>
                 </header>
 
+                <p>
+                    This site is the result of a cryptography project with the aim of creating an app or website with a
+                    few working cryptography exercises to improve our overall understanding of the concept.
+                </p>
+                <p>
+                    As of now the site includes the option to Verify credit card numbers, Hamming Code correction, Brute
+                    Force password cracking and Text Encryption
+                </p>
+
                 <h5 class="my-3">Contributors</h5>
 
                 {% for contrib in contributors %}
-                    <div class="card shadow mb-3">
+                    <div class="card shadow-sm mb-3">
                         <div class="card-body row align-items-stretch gap-1 gap-md-3 p-4">
                             <div class="col-12 col-md-3 mb-3 mb-md-0 d-flex align-items-center justify-content-center">
                                 <img src="{{ contrib.thumbnail }}" alt="{{ contrib.name }} profile image"
