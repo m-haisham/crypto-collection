@@ -37,13 +37,17 @@
                 <hr>
             </div>
 
+
+
+            {% with view_name=request.resolver_match.view_name %}
+                <div class="mb-3">
+                    <a href="{% url 'home' %}" class="btn btn-primary {% if view_name == 'home' %}active{% endif %}"><i class="fas fa-home"></i></a>
+                    <a href="{% url 'about' %}" class="btn btn-primary {% if view_name == 'about' %}active{% endif %}"><i class="fas fa-info-circle"></i></a>
+                </div>
+            {% endwith %}
+
             {% with view_name=request.resolver_match.view_name %}
                 <ul class="navbar-nav flex-column text-start">
-                    <li class="nav-item">
-                        <a class="nav-link {% if view_name == 'home' %}active{% endif %}" href="{% url 'home' %}">
-                            <i class="fas fa-home fa-fw me-2"></i>Home
-                        </a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link {% if '2021-07-10/hamming-code' in request.path %}active{% endif %}"
                            href="{% url 'blog:posts' date='2021-07-10' name='hamming-code' %}">
@@ -65,16 +69,10 @@
                     <li class="nav-item">
                         <a class="nav-link {% if '2021-08-21/hiding-in-strings' in request.path %}active{% endif %}"
                            href="{% url 'blog:posts' date='2021-08-21' name='hiding-in-strings' %}">
-                            <i class="fas fa-user-secret fa-fw me-2"></i>Steganography Chat
+                            <i class="fas fa-user-secret fa-fw me-2"></i>Hiding in String
                         </a>
                     </li>
                 </ul>
-            {% endwith %}
-
-            {% with view_name=request.resolver_match.view_name %}
-                <div class="my-2 my-md-3">
-                    <a class="btn btn-primary {% if view_name == 'about' %}active{% endif %}" href="{% url 'about' %}">About</a>
-                </div>
             {% endwith %}
         </div>
     </nav>
