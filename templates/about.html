@@ -32,7 +32,9 @@
                                     <a href="{{ contrib.profile }}" class="text-link">{{ contrib.alias }}</a>
                                     • {{ contrib.id }}
                                 </div>
-                                <p>{{ contrib.description }}</p>
+                                {% if contrib.description %}
+                                    <p>{{ contrib.description }}</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
