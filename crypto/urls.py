@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='home'),
+    path('about', views.about, name='about'),
     path('admin/', admin.site.urls),
     path('hamming-code/', include('crypto.apps.hamming_code.urls')),
     path('luhn-algorithm/', include('crypto.apps.luhn_algorithm.urls')),
