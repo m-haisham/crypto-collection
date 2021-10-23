@@ -1,3 +1,4 @@
+{% load static %}
 {% load widget_tweaks %}
 <div class="card shadow-sm">
     <div class="card-body">
@@ -80,7 +81,10 @@
                     <div class="mb-3">
                         <label for="{{ dform.dict_file.id_for_label }}" class="form-label">Dictionary</label>
                         {% render_field dform.dict_file class='form-control' accept='text/plain' %}
-                        <small class="text-muted">Leave empty to use default <a href="">wordlist.</a></small>
+                        <small class="text-muted">
+                            Leave empty to use default
+                            <a href="{% static 'assets/wordlists/cewl_dvwa_password.txt' %}">wordlist.</a>
+                        </small>
                     </div>
                     <button type="submit" class="btn btn-secondary">Submit</button>
                 </form>
