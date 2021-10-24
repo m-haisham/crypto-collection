@@ -4,19 +4,6 @@ function alpineData() {
     const keyInput = document.querySelector('input[name="key"]')
     const secretInput = document.querySelector('input[name="secret"]')
 
-    function setObserver() {
-        const chatNode = document.querySelector('#messages')
-        function callback(mutations) {
-            window.scrollTo({
-                top: document.body.scrollHeight,
-                behavior: 'instant',
-            });
-        }
-
-        const observer = new MutationObserver(callback);
-        observer.observe(chatNode, { attributes: true, childList: true, subtree: true });
-    }
-
     return {
         socket: null,
 
@@ -109,6 +96,13 @@ function alpineData() {
                     this.message = {...this.message, hasSecret: true, secret}
                 },
             }
+        },
+
+        scrollDown: function () {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'instant',
+            });
         },
 
         // UTILITY METHODS
