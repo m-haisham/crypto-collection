@@ -1,5 +1,5 @@
 document.querySelectorAll('form[data-partial]')
-    .forEach((form) => form.addEventListener('submit', (e) => {
+    .forEach((form) => form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const data = new FormData(e.target);
 
@@ -11,32 +11,34 @@ document.querySelectorAll('form[data-partial]')
         setWaitingHidden(false)
         if (!isWaitingHidden()) setInnerHTML('')
 
-        let xhr = new XMLHttpRequest();
-        xhr.open(
-            e.target.getAttribute('method'),
-            e.target.getAttribute('action'),
-        )
-        xhr.onabort = function (event) {
+        const abort = () => {
             setInnerHTML('')
             setErrorHidden(false)
             setWaitingHidden(true)
         }
 
-        xhr.onload = function (event) {
-            switch (event.target.status) {
+        try {
+            const response = await fetch(
+                e.target.getAttribute('action'),
+                {
+                    method: e.target.getAttribute('method'),
+                    body: data,
+                },
+            );
+
+            switch (response.status) {
                 case 200:
-                    setInnerHTML(event.target.responseText)
+                    setInnerHTML(await response.text())
                     setWaitingHidden(true)
                     setErrorHidden(true)
                     break
                 default:
-                    xhr.onabort(event)
+                    abort()
                     break;
             }
-
+        } catch (e) {
+            abort()
         }
-
-        xhr.send(data)
     }
 ));
 
