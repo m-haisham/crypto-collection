@@ -54,8 +54,6 @@ function alpineData() {
                     hasSecret: null,
                     secret: '',
                 };
-
-                window.scrollTo(0,document.body.scrollHeight);
             }
 
             this.socket.onerror = () => {
@@ -63,10 +61,13 @@ function alpineData() {
                     connected: false,
                     message: 'Connection was terminated unexpectedly.'
                 }
+
+                alert('Websocket ' + this.status.message.toLowerCase())
             }
 
-            messageInput.focus()
-            setObserver()
+            if (!(window.location.search ?? '').includes('focus=false')) {
+                messageInput.focus()
+            }
         },
         send: function () {
             let message = this.inputs.message;
