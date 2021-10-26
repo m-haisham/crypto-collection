@@ -73,12 +73,8 @@ function alpineShowData() {
             this.result = {original, decoded}
         },
 
-        intoClip: function () {
-            if (this.result == null) {
-                return;
-            }
-
-            navigator.clipboard.writeText(this.result.decoded)
+        clip: function (text) {
+            navigator.clipboard.writeText(text)
         },
     }
 }

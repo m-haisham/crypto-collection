@@ -121,7 +121,7 @@
                             <hr>
                             <div class="d-flex justify-content-between align-items-center gap-2">
                                 <span x-text="result"></span>
-                                <button class="btn" @click.prevent="intoClip()">
+                                <button class="btn btn-link" @click.prevent="clip(result)">
                                     <i class="fas fa-copy"></i>
                                 </button>
                             </div>
@@ -158,7 +158,7 @@
                                         <div class="col-12 col-md-2 fw-bold">Original:</div>
                                         <div class="col" x-text="result.original"></div>
                                     </div>
-                                    <button class="btn" @click.prevent="clip(result.original)">
+                                    <button class="btn btn-link" @click.prevent="clip(result.original)">
                                         <i class="fas fa-copy"></i>
                                     </button>
                                 </li>
@@ -167,7 +167,7 @@
                                         <div class="col-12 col-md-2 fw-bold">Decoded:</div>
                                         <div class="col" x-text="result.decoded"></div>
                                     </div>
-                                    <button class="btn" @click.prevent="clip(result.decoded)">
+                                    <button class="btn btn-link" @click.prevent="clip(result.decoded)">
                                         <i class="fas fa-copy"></i>
                                     </button>
                                 </li>
