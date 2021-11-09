@@ -44,8 +44,9 @@ class CrackingService:
         return enc_function
 
     def generate_combinations(self, iterable: Iterable, length: int):
-        for value in itertools.product(iterable, repeat=length):
-            yield ''.join(value).encode('utf-8')
+        for v in range(1, length + 1):
+            for value in itertools.product(iterable, repeat=v):
+                yield ''.join(value).encode('utf-8')
 
     def crack(self, unknown_hash: str, options: Iterable[bytes], hash_function: encrypt) -> CrackingResult:
         start_time = datetime.now()
@@ -60,12 +61,5 @@ class CrackingService:
         return CrackingResult(keyword=None, time_taken=datetime.now() - start_time, processed_count=count)
 
     def brute_force(self, unknown_hash: str, length: int, hash_function: encrypt) -> CrackingResult:
-        result = None
-        for n in range(1, length + 1):
-            new_result = self.crack(unknown_hash, self.generate_combinations(self.charset, n), hash_function)
-            result = new_result + result
+        return self.crack(unknown_hash, self.generate_combinations(self.charset, length), hash_function)
 
-            if result.is_cracked:
-                return result
-
-        return result
