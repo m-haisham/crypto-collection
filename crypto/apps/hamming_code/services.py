@@ -67,7 +67,7 @@ class HammingService:
             else:
                 arr[p - 1] = 1 if count % 2 != 1 else 0
 
-        return ''.join([str(bit) for bit in arr])
+        return ''.join(str(bit) for bit in arr)
 
     def detect_error(self, data, is_even=True) -> Tuple[str, int]:
         if type(data) == str:
