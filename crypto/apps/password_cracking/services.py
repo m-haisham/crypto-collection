@@ -3,6 +3,7 @@ import itertools
 import re
 from dataclasses import dataclass
 from datetime import timedelta, datetime
+from pathlib import Path
 from string import ascii_lowercase, digits
 from typing import Iterable, Optional, Callable
 
@@ -63,3 +64,13 @@ class CrackingService:
     def brute_force(self, unknown_hash: str, length: int, hash_function: encrypt) -> CrackingResult:
         return self.crack(unknown_hash, self.generate_combinations(self.charset, length), hash_function)
 
+    def dictionary(self, unknown_hash: str, file: Path, hash_function: encrypt) -> CrackingResult:
+        def words():
+            """return words of the file as a generator"""
+            with file.open('rb') as f:
+                lines = f.read().split(b'\n')
+
+            for line in lines:
+                yield line
+
+        return self.crack(unknown_hash, words(), hash_function)

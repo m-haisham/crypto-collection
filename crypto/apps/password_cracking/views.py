@@ -49,8 +49,6 @@ def brute_crack(request):
 def dictionary(request):
     form = DictionaryForm(request.POST, request.FILES)
 
-    # TODO default wordlist
-
     if form.is_valid():
         hashed_word = form.cleaned_data.get('hashed_word')
         enc_type = form.cleaned_data.get('enc_type')
@@ -58,16 +56,8 @@ def dictionary(request):
         if dict_file is None:
             dict_file = Path(staticfiles_storage.path('assets/wordlists/cewl_dvwa_password.txt'))
 
-        def words():
-            """return words of the file as a generator"""
-            with dict_file.open('rb') as f:
-                lines = f.read().split(b'\n')
-
-            for line in lines:
-                yield line
-
         service = CrackingService()
-        result = service.crack(hashed_word, words(), service.get_encryption_function(enc_type))
+        result = service.dictionary(hashed_word, dict_file, service.get_encryption_function(enc_type))
 
         context = {
             "keyword": result.keyword,
