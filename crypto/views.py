@@ -19,8 +19,4 @@ contributors = [
 
 
 def index(request):
-    return render(request, 'home.html', context={'posts': posts.blog_posts})
-
-
-def about(request):
-    return render(request, 'about.html', context={'contributors': contributors})
+    return render(request, 'home.html', context={'posts': posts.blog_posts, 'contributors': contributors})

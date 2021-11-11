@@ -2,24 +2,20 @@
     <div class="container d-flex align-items-center justify-content-between">
 
         <div class="logo">
-            <a href="{% url 'home' %}"><i class="fas fa-key fa-2x"></i></a>
+            <a href="{% url 'home' %}"><i class="bx bx-key bx-lg"></i></a>
         </div>
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li>
-                    <a class="nav-link {% if view_name == 'home' %}active{% endif %}"
-                       href="{% url 'home' %}">
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link {% if view_name == 'about' %}active{% endif %}"
-                       href="{% url 'about' %}">
-                        About
-                    </a>
-                </li>
-                <li class="dropdown"><a href="#"><span>Content</span> <i class="fas fa-chevron-down"></i></a>
+                {% with view_name=request.resolver_match.view_name %}
+                    <li>
+                        <a class="nav-link {% if view_name == 'home' %}active{% endif %}"
+                           href="{% url 'home' %}">
+                            Home
+                        </a>
+                    </li>
+                {% endwith %}
+                <li class="dropdown"><a href="#"><span>Content</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li>
                             <a class="nav-link {% if '2021-07-10/hamming-code' in request.path %}active{% endif %}"
@@ -48,7 +44,7 @@
                     </ul>
                 </li>
             </ul>
-            <i class="fas fa-list mobile-nav-toggle"></i>
+            <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
 
     </div>

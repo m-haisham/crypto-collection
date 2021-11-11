@@ -10,7 +10,7 @@ blog_posts = [
                     'may occur during the transmission of the data from the sender to the receiver...',
         published=date(2021, 7, 10),
         link='hamming-code',
-        icon='grip-horizontal',
+        icon='bx-transfer',
     ),
     Post(
         title='Luhn Algorithm',
@@ -18,7 +18,7 @@ blog_posts = [
                     'identification numbers such as, credit card numbers and IMEI numbers...',
         published=date(2021, 7, 12),
         link='luhn-algorithm',
-        icon='credit-card',
+        icon='bx-credit-card',
     ),
     Post(
         title='Password Cracking',
@@ -27,7 +27,7 @@ blog_posts = [
                     'brute-force attack and dictionary attack.',
         published=date(2021, 7, 14),
         link='password-cracking',
-        icon='lock',
+        icon='bx-lock',
     ),
     Post(
         title='Hiding Secrets in Strings',
@@ -36,7 +36,7 @@ blog_posts = [
                     'message has been encrypted and this gives raise to scrutiny...',
         published=date(2021, 8, 21),
         link='hiding-in-strings',
-        icon='user-secret',
+        icon='bxs-magic-wand',
     ),
 ]
 
