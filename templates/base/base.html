@@ -1,29 +1,41 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 <head>
     {# Meta #}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{% static '/favicon.ico' %}">
-    
-    {# FontAwesome JS #}
-    <link rel="stylesheet" href="{% static 'plugins/fontawesome/css/all.min.css' %}"/>
-    
+
+    {# Dependencies #}
+    <link rel="stylesheet" href="{% static '/plugins/aos/aos.css' %}">
+    <link rel="stylesheet" href="{% static '/plugins/glightbox/css/glightbox.min.css' %}">
+    <link rel="stylesheet" href="{% static '/plugins/swiper/swiper-bundle.min.css' %}">
+
+    {# Fonts #}
+    <link rel="stylesheet" href="{% static '/plugins/fontawesome/css/all.min.css' %}"/>
+    <link rel="stylesheet" href="{% static '/plugins/boxicons/css/boxicons.min.css' %}">
+
+    {# Boostrap CSS #}
+    <link rel="stylesheet" href="{% static '/plugins/bootstrap/css/bootstrap.min.css' %}">
+
     {# Theme CSS #}
-    <link id="theme-style" rel="stylesheet" href="{% static '/css/themes/theme-1.css' %}">
+    <link rel="stylesheet" href="{% static '/plugins/theme/style.css' %}">
 
     {% block head %}{% endblock %}
-</head> 
+</head>
 
 <body>
-    
-    {% block body %}{% endblock %}
-       
-    <!-- Javascript -->          
-    <script src="{% static '/plugins/popper.min.js' %}"></script>
-    <script src="{% static '/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-    {% block scripts %}{% endblock %}
+{% block body %}{% endblock %}
+
+<!-- Javascript -->
+<script src="{% static '/plugins/aos/aos.js' %}"></script>
+<script src="{% static '/plugins/glightbox/js/glightbox.min.js' %}"></script>
+<script src="{% static '/plugins/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static '/plugins/popper.min.js' %}"></script>
+<script src="{% static '/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static '/plugins/theme/main.js' %}"></script>
+{% block scripts %}{% endblock %}
 </body>
 </html>

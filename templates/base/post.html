@@ -9,31 +9,45 @@
 {% block body %}
     {% include 'base/header.html' %}
 
-    <div class="main-wrapper">
-        <article class="blog-post px-3 py-5 p-md-5">
-            <div class="container single-col-max-width">
-                <header class="blog-post-header">
-                    <h2 class="title mb-2">{{ current.title }}</h2>
-                    <div class="meta mb-3"><span class="date">Published on {{ current.published }}</span></div>
-                </header>
+    <main id="main" class="scrolled-offset">
 
+        <section class="breadcrumbs">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2>{{ current.title }}</h2>
+                        <small class="text-muted">Published on {{ current.published }}</small>
+                    </div>
+                    <ol>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li>{{ current.title }}</li>
+                    </ol>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="inner-page">
+            <div class="container">
                 {% block article %}{% endblock %}
 
                 <nav class="blog-nav nav nav-justified my-5">
                     {% if previous != null %}
-                        <a class="nav-link-prev nav-item nav-link rounded-left" href="{% url 'blog:posts' date=previous.published name=previous.link %}">
+                        <a class="nav-link-prev nav-item nav-link rounded-left"
+                           href="{% url 'blog:posts' date=previous.published name=previous.link %}">
                             Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i>
                         </a>
                     {% endif %}
                     {% if next != null %}
-                        <a class="nav-link-next nav-item nav-link rounded-right" href="{% url 'blog:posts' date=next.published name=next.link %}">
+                        <a class="nav-link-next nav-item nav-link rounded-right"
+                           href="{% url 'blog:posts' date=next.published name=next.link %}">
                             Next<i class="arrow-next fas fa-long-arrow-alt-right"></i>
                         </a>
                     {% endif %}
                 </nav>
             </div>
-        </article>
-    </div>
+        </section>
+    </main>
 
     {% include 'base/footer.html' %}
 {% endblock %}
