@@ -31,17 +31,17 @@
             <div class="container">
                 {% block article %}{% endblock %}
 
-                <nav class="blog-nav nav nav-justified my-5">
+                <nav class="blog-nav nav nav-justified mt-5 gap-1">
                     {% if previous != null %}
-                        <a class="nav-link-prev nav-item nav-link rounded-left"
+                        <a class="nav-item nav-link rounded-left btn-primary text-white"
                            href="{% url 'blog:posts' date=previous.published name=previous.link %}">
-                            Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i>
+                            Previous
                         </a>
                     {% endif %}
                     {% if next != null %}
-                        <a class="nav-link-next nav-item nav-link rounded-right"
+                        <a class="nav-item nav-link rounded-right btn-primary text-white"
                            href="{% url 'blog:posts' date=next.published name=next.link %}">
-                            Next<i class="arrow-next fas fa-long-arrow-alt-right"></i>
+                            Next
                         </a>
                     {% endif %}
                 </nav>
