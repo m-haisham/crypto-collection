@@ -59,15 +59,20 @@
         </tbody>
     </table>
     <p>The encoded bitstring is converted to invisible characters by applying the above table.</p>
-    <p>For example:</p>
-    <pre>01101000 01101001</pre>
-    <p>When encoded with the above table gives:</p>
-    <pre>BCCABCCB</pre>
+    <p><b>For example:</b></p>
+    <p>When <code>01101000 01101001</code> is encoded with the above table gives it gives <code>BCCABCCB</code> as a
+        result</p>
     <p>This is then placed in the first space or between the first and second character if there is no
         space in the unconcealed string.</p>
-    <pre>Unconcealed <small>BCCABCCB</small>String</pre>
+    <pre>Unconcealed <small class="text-muted">BCCABCCB</small>String</pre>
     <p>The resulting string is sent as the message where the receiver with the key will decrypt and
         read it.</p>
+
+    <h5 class="my-3">Why implement in frontend?</h5>
+
+    <p>This encoding technique is fully implemented in the frontend for the very simple of not having to
+        pass the stream cipher secret key between the client and the server.</p>
+    <p></p>
 
     <h5 class="my-3">Hide and Show</h5>
 
@@ -181,7 +186,8 @@
 
     <h5 class="my-3">Chat Application</h5>
     <div class="card shadow-sm">
-        <iframe src="{% url 'chat:room' room_name='lobby' %}?focus=false" title="Secure Chat Application" class="border-0"
+        <iframe src="{% url 'chat:room' room_name='lobby' %}?focus=false" title="Secure Chat Application"
+                class="border-0"
                 height="500px"></iframe>
     </div>
 {% endblock %}
