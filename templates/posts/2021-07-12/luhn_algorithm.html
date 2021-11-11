@@ -15,24 +15,70 @@
 
     <div class="accordion shadow-sm mt-4" id="luhn-other-accordion">
         <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo"
+                        aria-expanded="false" aria-controls="collapseTwo">
+                    How it works
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                 data-bs-parent="#luhn-other-accordion">
+                <div class="accordion-body">
+                    <p>
+                        The validity of the credit card number is determined by a check digit calculated by the
+                        following algorithm to calculate the check digit. <a href="https://en.wikipedia.org/wiki/Hamming_code">wiki</a>
+                    </p>
+                    <ol>
+                        <li>Take the original number and starting from the rightmost digit moving left, double the value
+                            of every second digit (including the rightmost digit).
+                        </li>
+                        <li>Replace the resulting value at each position with the sum of the digits of this position's
+                            value.
+                            <ul>
+                                <li>12 = 1 + 2 = 3</li>
+                                <li>18 = 1 + 8 = 9</li>
+                            </ul>
+                        </li>
+                        <li>Sum up the resulting values from all positions (s).</li>
+                        <li>The calculated check digit is equal to 10 - <code>s mod 10</code>.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne"
                         aria-expanded="false" aria-controls="collapseOne">
-                    Other
+                    Other details
                 </button>
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                  data-bs-parent="#luhn-other-accordion">
                 <div class="accordion-body">
                     <!-- Algorithm Information -->
-                    <h6>Major Industry Identifier</h6>
-                    <p>The first digit of a credit card number represent the category of entity which issued the
-                        card.</p>
-                    <h6>Issuer identification number</h6>
-                    <p>The first six digits of a card number identify the institution that issued the card.</p>
-                    <h6>Personal Account identifier</h6>
-                    <p>From digit no. 7 to final minus 1, indicate individual account identifier.</p>
-                    <p>The last digit is the checksum number.</p>
+                    <p>
+                        Below are some other information that can be extracted from the credit card number.
+                    </p>
+
+                    <ul>
+                        <li>
+                            <b>Major Industry Identifier: </b>
+                            The first digit of a credit card number represent the category of entity which issued the
+                            card.
+                        </li>
+                        <li>
+                            <b>Issuer identification number: </b>
+                            The first six digits of a card number identify the institution that issued the card.
+                        </li>
+                        <li>
+                            <b>Personal Account identifier: </b>
+                            From digit no. 7 to final minus 1, indicate individual account identifier and the The last
+                            digit
+                            is the checksum number.
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
