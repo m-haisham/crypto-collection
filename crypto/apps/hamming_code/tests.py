@@ -29,14 +29,26 @@ class TestHammingService(TestCase):
 
     def test_encode_even(self):
         data = {
-            "0100101": "0101",
-            "1011010": "1010",
-            "0000000": "0000",
-            "1111111": "1111",
+            "0000000": ("0000", True),
+            "1110000": ("1000", True),
+            "1001100": ("0100", True),
+            "0111100": ("1100", True),
+            "0101010": ("0010", True),
+            "1011010": ("1010", True),
+            "1100110": ("0110", True),
+            "0010110": ("1110", True),
+            "1101001": ("0001", True),
+            "0011001": ("1001", True),
+            "0100101": ("0101", True),
+            "1010101": ("1101", True),
+            "1000011": ("0011", True),
+            "0110011": ("1011", True),
+            "0001111": ("0111", True),
+            "1111111": ("1111", True),
         }
 
         for expected, test in data.items():
-            self.assertEqual(expected, self.service.encode(test))
+            self.assertEqual(expected, self.service.encode(*test))
 
     def test_encode_odd(self):
         data = {
