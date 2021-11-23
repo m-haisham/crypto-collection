@@ -1,3 +1,41 @@
-<footer class="footer text-center py-2 theme-bg-dark">
-    <small class="copyright">Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="https://github.com/mensch272" target="_blank">Mensch272</a>.</small>
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row text-muted">
+            <div class="col-6 text-start">
+                <p class="mb-0">
+                    <span class="text-muted">Crypto</span>
+                    &copy;
+                </p>
+            </div>
+            <div class="col-6 text-end">
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <a class="text-muted" href="{% url 'blog:posts' date='2021-07-10' name='hamming-code' %}">
+                            <i class="align-middle" data-feather="square"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="text-muted" href="{% url 'blog:posts' date='2021-07-12' name='luhn-algorithm' %}">
+                            <i class="align-middle" data-feather="credit-card"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="text-muted" href="{% url 'blog:posts' date='2021-07-14' name='password-cracking' %}">
+                            <i class="align-middle" data-feather="lock"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="text-muted" href="{% url 'blog:posts' date='2021-08-21' name='hiding-in-strings' %}">
+                            <i class="align-middle" data-feather="eye-off"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="text-muted" href="{% url 'about' %}">
+                            <i class="align-middle" data-feather="info"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </footer>

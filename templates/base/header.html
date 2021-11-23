@@ -1,89 +1,144 @@
-<header class="header text-center">
-    <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="index.html">Cryptick</a></h1>
+{#<header class="header text-center">#}
+{#    <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="index.html">Cryptick</a></h1>#}
+{##}
+{#    <nav class="navbar navbar-expand-lg navbar-dark">#}
+{##}
+{#        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation"#}
+{#                aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">#}
+{#            <span class="navbar-toggler-icon"></span>#}
+{#        </button>#}
+{##}
+{#        <div id="navigation" class="collapse navbar-collapse flex-column">#}
+{#            <div class="profile-section pt-3 pt-lg-0">#}
+{#                <div class="bio mb-3">#}
+{#                    <p>This is a group of closely related cryptography projects.</p>#}
+{#                    <p><code class="text-white">[UFCFT4-15-3]</code></p>#}
+{#                </div>#}
+{#                <ul class="social-list list-inline py-3 mx-auto">#}
+{#                    <li class="list-inline-item">#}
+{#                        <a href="https://github.com/mensch272">#}
+{#                            <img src="https://avatars.githubusercontent.com/u/47662901?v=4" alt="Mensch272"#}
+{#                                 class="img-fluid border-dark rounded-circle" style="margin-top: -0.4rem">#}
+{#                        </a>#}
+{#                    </li>#}
+{#                    <li class="list-inline-item">#}
+{#                        <a href="https://github.com/maadhmohamed">#}
+{#                            <img src="https://avatars.githubusercontent.com/u/44810382?v=4" alt="Maadh"#}
+{#                                 class="img-fluid border-dark rounded-circle" style="margin-top: -0.4rem">#}
+{#                        </a>#}
+{#                    </li>#}
+{#                    <li class="list-inline-item">#}
+{#                        <a href="https://github.com/Codemachine0101">#}
+{#                            <img src="https://avatars.githubusercontent.com/u/53483283?v=4" alt="Codemachine0101"#}
+{#                                 class="img-fluid border-dark rounded-circle" style="margin-top: -0.4rem">#}
+{#                        </a>#}
+{#                    </li>#}
+{#                </ul>#}
+{#                <hr>#}
+{#            </div>#}
+{##}
+{#            {% with view_name=request.resolver_match.view_name %}#}
+{#                <ul class="navbar-nav flex-column text-start">#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link {% if view_name == 'home' %}active{% endif %}"#}
+{#                           href="{% url 'home' %}">#}
+{#                            <i class="fas fa-home fa-fw me-2"></i>Home#}
+{#                        </a>#}
+{#                    </li>#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link {% if view_name == 'about' %}active{% endif %}"#}
+{#                           href="{% url 'about' %}">#}
+{#                            <i class="fas fa-info fa-fw me-2"></i>About#}
+{#                        </a>#}
+{#                    </li>#}
+{#                </ul>#}
+{#            {% endwith %}#}
+{##}
+{#            <div class="w-100">#}
+{#                <hr>#}
+{#            </div>#}
+{##}
+{#            <ul class="navbar-nav flex-column text-start">#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link {% if '2021-07-10/hamming-code' in request.path %}active{% endif %}"#}
+{#                       href="{% url 'blog:posts' date='2021-07-10' name='hamming-code' %}">#}
+{#                        <i class="fas fa-grip-horizontal fa-fw me-2"></i>Hamming Code#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link {% if '2021-07-12/luhn-algorithm' in request.path %}active{% endif %}"#}
+{#                       href="{% url 'blog:posts' date='2021-07-12' name='luhn-algorithm' %}">#}
+{#                        <i class="fas fa-credit-card fa-fw me-2"></i>Luhn Algorithm#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link {% if '2021-07-14/password-cracking' in request.path %}active{% endif %}"#}
+{#                       href="{% url 'blog:posts' date='2021-07-14' name='password-cracking' %}">#}
+{#                        <i class="fas fa-lock fa-fw me-2"></i>Password Cracking#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link {% if '2021-08-21/hiding-in-strings' in request.path %}active{% endif %}"#}
+{#                       href="{% url 'blog:posts' date='2021-08-21' name='hiding-in-strings' %}">#}
+{#                        <i class="fas fa-user-secret fa-fw me-2"></i>Hiding in String#}
+{#                    </a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </div>#}
+{#    </nav>#}
+{#</header>#}
+<nav id="sidebar" class="sidebar js-sidebar">
+    <div class="sidebar-content js-simplebar">
+        <a class="sidebar-brand" href="{% url 'home' %}">
+            <span class="align-middle">Crypto</span>
+        </a>
 
-    <nav class="navbar navbar-expand-lg navbar-dark">
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation"
-                aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div id="navigation" class="collapse navbar-collapse flex-column">
-            <div class="profile-section pt-3 pt-lg-0">
-                <div class="bio mb-3">
-                    <p>This is a group of closely related cryptography projects.</p>
-                    <p><code class="text-white">[UFCFT4-15-3]</code></p>
-                </div>
-                <ul class="social-list list-inline py-3 mx-auto">
-                    <li class="list-inline-item">
-                        <a href="https://github.com/mensch272">
-                            <img src="https://avatars.githubusercontent.com/u/47662901?v=4" alt="Mensch272"
-                                 class="img-fluid border-dark rounded-circle" style="margin-top: -0.4rem">
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://github.com/maadhmohamed">
-                            <img src="https://avatars.githubusercontent.com/u/44810382?v=4" alt="Maadh"
-                                 class="img-fluid border-dark rounded-circle" style="margin-top: -0.4rem">
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="https://github.com/Codemachine0101">
-                            <img src="https://avatars.githubusercontent.com/u/53483283?v=4" alt="Codemachine0101"
-                                 class="img-fluid border-dark rounded-circle" style="margin-top: -0.4rem">
-                        </a>
-                    </li>
-                </ul>
-                <hr>
-            </div>
-
+        <ul class="sidebar-nav">
             {% with view_name=request.resolver_match.view_name %}
-                <ul class="navbar-nav flex-column text-start">
-                    <li class="nav-item">
-                        <a class="nav-link {% if view_name == 'home' %}active{% endif %}"
-                           href="{% url 'home' %}">
-                            <i class="fas fa-home fa-fw me-2"></i>Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if view_name == 'about' %}active{% endif %}"
-                           href="{% url 'about' %}">
-                            <i class="fas fa-info fa-fw me-2"></i>About
-                        </a>
-                    </li>
-                </ul>
+                <li class="sidebar-item {% if view_name == 'home' %}active{% endif %}">
+                    <a class="sidebar-link" href="{% url 'home' %}">
+                        <i class="align-middle" data-feather="home"></i> <span class="align-middle">Home</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item {% if view_name == 'about' %}active{% endif %}">
+                    <a class="sidebar-link" href="{% url 'about' %}">
+                        <i class="align-middle" data-feather="info"></i> <span class="align-middle">About</span>
+                    </a>
+                </li>
             {% endwith %}
 
-            <div class="w-100">
-                <hr>
-            </div>
+            <li class="sidebar-header">
+                Posts
+            </li>
 
-            <ul class="navbar-nav flex-column text-start">
-                <li class="nav-item">
-                    <a class="nav-link {% if '2021-07-10/hamming-code' in request.path %}active{% endif %}"
-                       href="{% url 'blog:posts' date='2021-07-10' name='hamming-code' %}">
-                        <i class="fas fa-grip-horizontal fa-fw me-2"></i>Hamming Code
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if '2021-07-12/luhn-algorithm' in request.path %}active{% endif %}"
-                       href="{% url 'blog:posts' date='2021-07-12' name='luhn-algorithm' %}">
-                        <i class="fas fa-credit-card fa-fw me-2"></i>Luhn Algorithm
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if '2021-07-14/password-cracking' in request.path %}active{% endif %}"
-                       href="{% url 'blog:posts' date='2021-07-14' name='password-cracking' %}">
-                        <i class="fas fa-lock fa-fw me-2"></i>Password Cracking
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if '2021-08-21/hiding-in-strings' in request.path %}active{% endif %}"
-                       href="{% url 'blog:posts' date='2021-08-21' name='hiding-in-strings' %}">
-                        <i class="fas fa-user-secret fa-fw me-2"></i>Hiding in String
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+            <li class="sidebar-item {% if '2021-07-10/hamming-code' in request.path %}active{% endif %}">
+                <a class="sidebar-link" href="{% url 'blog:posts' date='2021-07-10' name='hamming-code' %}">
+                    <i class="align-middle" data-feather="square"></i>
+                    <span class="align-middle">Hamming Code</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item {% if '2021-07-12/luhn-algorithm' in request.path %}active{% endif %}">
+                <a class="sidebar-link" href="{% url 'blog:posts' date='2021-07-12' name='luhn-algorithm' %}">
+                    <i class="align-middle" data-feather="credit-card"></i>
+                    <span class="align-middle">Luhn Algorithm</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item {% if '2021-07-14/password-cracking' in request.path %}active{% endif %}">
+                <a class="sidebar-link" href="{% url 'blog:posts' date='2021-07-14' name='password-cracking' %}">
+                    <i class="align-middle" data-feather="lock"></i>
+                    <span class="align-middle">Passord Cracking</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item {% if '2021-08-21/hiding-in-strings' in request.path %}active{% endif %}">
+                <a class="sidebar-link" href="{% url 'blog:posts' date='2021-08-21' name='hiding-in-strings' %}">
+                    <i class="align-middle" data-feather="eye-off"></i>
+                    <span class="align-middle">Hiding in Strings</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

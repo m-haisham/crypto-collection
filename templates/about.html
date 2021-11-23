@@ -1,56 +1,48 @@
-{% extends 'base/base.html' %}
+{% extends 'base/main.html' %}
 
 {% block head %}
-    <title>Cryptick | About</title>
+    <title>Crypto | About</title>
     <meta name="description"
           content="This is a collaboratory work designed between Mensch272, CodeMachine0101, and Maadh.">
     {% block css %}{% endblock %}
 {% endblock %}
 
-{% block body %}
-    {% include 'base/header.html' %}
+{% block main %}
+    <article>
+        <header class="blog-post-header mb-3">
+            <h1 class="mb-1"><strong>About</strong></h1>
+        </header>
 
-    <div class="main-wrapper">
-        <article class="blog-post px-3 py-5 p-md-5">
-            <div class="container single-col-max-width">
-                <header class="blog-post-header mb-3">
-                    <h2 class="title mb-2">About</h2>
-                </header>
+        <p>
+            This site is the result of a cryptography project with the aim of creating an app or website with a
+            few working cryptography exercises to improve our overall understanding of the concept.
+        </p>
+        <p>
+            As of now the site includes the option to Verify credit card numbers, Hamming Code correction, Brute
+            Force password cracking and Text Encryption
+        </p>
 
-                <p>
-                    This site is the result of a cryptography project with the aim of creating an app or website with a
-                    few working cryptography exercises to improve our overall understanding of the concept.
-                </p>
-                <p>
-                    As of now the site includes the option to Verify credit card numbers, Hamming Code correction, Brute
-                    Force password cracking and Text Encryption
-                </p>
+        <h5 class="my-3">Contributors</h5>
 
-                <h5 class="my-3">Contributors</h5>
-
-                {% for contrib in contributors %}
-                    <div class="card shadow-sm mb-3">
-                        <div class="card-body row align-items-stretch gap-1 gap-md-3 p-4">
-                            <div class="col-12 col-md-3 mb-3 mb-md-0 d-flex align-items-center justify-content-center">
-                                <img src="{{ contrib.thumbnail }}" alt="{{ contrib.name }} profile image"
-                                     class="img-fluid rounded-circle shadow-sm">
-                            </div>
-                            <div class="col d-flex flex-column justify-content-center">
-                                <h5 class="card-title">{{ contrib.name }}</h5>
-                                <div class="meta mb-3">
-                                    <a href="{{ contrib.profile }}" class="text-link">{{ contrib.alias }}</a>
-                                    • {{ contrib.id }}
-                                </div>
-                                {% if contrib.description %}
-                                    <p>{{ contrib.description }}</p>
-                                {% endif %}
-                            </div>
-                        </div>
+        {% for contrib in contributors %}
+            <div class="card shadow-sm mb-3">
+                <div class="card-body row align-items-stretch gap-1 gap-md-3 p-4">
+                    <div class="col-12 col-md-3 mb-3 mb-md-0 d-flex align-items-center justify-content-center">
+                        <img src="{{ contrib.thumbnail }}" alt="{{ contrib.name }} profile image"
+                             class="img-fluid rounded-circle shadow-sm">
                     </div>
-                {% endfor %}
+                    <div class="col d-flex flex-column justify-content-center">
+                        <h5 class="card-title">{{ contrib.name }}</h5>
+                        <div class="meta mb-3">
+                            <a href="{{ contrib.profile }}" class="text-link">{{ contrib.alias }}</a>
+                            • {{ contrib.id }}
+                        </div>
+                        {% if contrib.description %}
+                            <p>{{ contrib.description }}</p>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-        </article>
-    </div>
-
-    {% include 'base/footer.html' %}
+        {% endfor %}
+    </article>
 {% endblock %}
