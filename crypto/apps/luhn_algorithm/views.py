@@ -5,7 +5,7 @@ from django.template.response import SimpleTemplateResponse
 from django.templatetags.static import static
 
 from .forms import CCGenerateForm, CCValidateForm
-from .models import CreditCard, CreditCardIssuer
+from .models import CreditCard
 from .service import validate_credit_card, CreditCardService
 
 

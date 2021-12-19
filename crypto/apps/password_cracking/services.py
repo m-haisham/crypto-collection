@@ -8,10 +8,13 @@ from string import ascii_lowercase, digits
 from typing import Iterable, Optional, Callable
 
 hash_regex = re.compile(r'^[0-9a-fA-F]+$')
+encrypt = Callable[[bytes], str]
+charset = ascii_lowercase + digits
+encryption_types = ['sha1', 'sha224', 'sha256', 'sha384', 'sha512', 'md5', ]
 
 
 @dataclass
-class CrackingResult:
+class Result:
     keyword: Optional[str]
     time_taken: timedelta
     processed_count: int
@@ -20,57 +23,44 @@ class CrackingResult:
     def is_cracked(self) -> bool:
         return self.keyword is not None
 
-    def __add__(self, other):
-        if other is None:
-            return self
 
-        self.keyword = self.keyword or other.keyword
-        self.time_taken += other.time_taken
-        self.processed_count += other.processed_count
+def get_encryption_function(enc_type: str) -> encrypt:
+    def enc_function(value):
+        return getattr(hashlib, enc_type)(value).hexdigest()
 
-        return self
+    return enc_function
 
 
-class CrackingService:
-    encrypt = Callable[[bytes], str]
+def generate_combinations(iterable: Iterable, length: int):
+    for v in range(1, length + 1):
+        for value in itertools.product(iterable, repeat=v):
+            yield ''.join(value).encode('utf-8')
 
-    charset = ascii_lowercase + digits
-    encryption_types = ['sha1', 'sha224', 'sha256', 'sha384', 'sha512', 'md5', ]
 
-    @classmethod
-    def get_encryption_function(cls, enc_type: str) -> encrypt:
-        def enc_function(value):
-            return getattr(hashlib, enc_type)(value).hexdigest()
+def crack(unknown_hash: str, options: Iterable[bytes], hash_function: encrypt) -> Result:
+    start_time = datetime.now()
+    count = 1
+    for word in options:
+        if unknown_hash == hash_function(word):
+            return Result(keyword=word.decode('utf-8'), time_taken=datetime.now() - start_time,
+                          processed_count=count)
 
-        return enc_function
+        count += 1
 
-    def generate_combinations(self, iterable: Iterable, length: int):
-        for v in range(1, length + 1):
-            for value in itertools.product(iterable, repeat=v):
-                yield ''.join(value).encode('utf-8')
+    return Result(keyword=None, time_taken=datetime.now() - start_time, processed_count=count)
 
-    def crack(self, unknown_hash: str, options: Iterable[bytes], hash_function: encrypt) -> CrackingResult:
-        start_time = datetime.now()
-        count = 1
-        for word in options:
-            if unknown_hash == hash_function(word):
-                return CrackingResult(keyword=word.decode('utf-8'), time_taken=datetime.now() - start_time,
-                                      processed_count=count)
 
-            count += 1
+def brute_force(unknown_hash: str, length: int, hash_function: encrypt) -> Result:
+    return crack(unknown_hash, generate_combinations(charset, length), hash_function)
 
-        return CrackingResult(keyword=None, time_taken=datetime.now() - start_time, processed_count=count)
 
-    def brute_force(self, unknown_hash: str, length: int, hash_function: encrypt) -> CrackingResult:
-        return self.crack(unknown_hash, self.generate_combinations(self.charset, length), hash_function)
+def dictionary_file(unknown_hash: str, file: Path, hash_function: encrypt) -> Result:
+    def words():
+        """return words of the file as a generator"""
+        with file.open('rb') as f:
+            lines = f.read().split(b'\n')
 
-    def dictionary(self, unknown_hash: str, file: Path, hash_function: encrypt) -> CrackingResult:
-        def words():
-            """return words of the file as a generator"""
-            with file.open('rb') as f:
-                lines = f.read().split(b'\n')
+        for line in lines:
+            yield line
 
-            for line in lines:
-                yield line
-
-        return self.crack(unknown_hash, words(), hash_function)
+    return crack(unknown_hash, words(), hash_function)

@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.template.response import SimpleTemplateResponse
 
 from .forms import DictionaryForm, BruteForm, HashForm
-from .services import CrackingService
+from .services import get_encryption_function, brute_force, dictionary_file
 from django.contrib.staticfiles.storage import staticfiles_storage
 
 
@@ -15,10 +15,8 @@ def hash_word(request):
         word = form.cleaned_data.get('word')
         enc_type = form.cleaned_data.get('enc_type')
 
-        service = CrackingService()
-
         context = {
-            'hash': service.get_encryption_function(enc_type)(word.encode('utf-8')),
+            'hash': get_encryption_function(enc_type)(word.encode('utf-8')),
         }
 
         return SimpleTemplateResponse('password_cracking/hash-result.html', context)
@@ -32,8 +30,7 @@ def brute_crack(request):
         hashed_word = form.cleaned_data.get('hashed_word')
         hashed_type = form.cleaned_data.get('enc_type')
 
-        service = CrackingService()
-        result = service.brute_force(hashed_word, 6, service.get_encryption_function(hashed_type))
+        result = brute_force(hashed_word, 6, get_encryption_function(hashed_type))
         context = {
             "keyword": result.keyword,
             "is_cracked": result.is_cracked,
@@ -56,8 +53,7 @@ def dictionary(request):
         if dict_file is None:
             dict_file = Path(staticfiles_storage.path('assets/wordlists/cewl_dvwa_password.txt'))
 
-        service = CrackingService()
-        result = service.dictionary(hashed_word, dict_file, service.get_encryption_function(enc_type))
+        result = dictionary_file(hashed_word, dict_file, get_encryption_function(enc_type))
 
         context = {
             "keyword": result.keyword,

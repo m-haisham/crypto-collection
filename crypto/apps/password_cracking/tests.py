@@ -2,19 +2,14 @@ import hashlib
 
 import pytest
 
-from .services import CrackingService, hash_regex
+from .services import hash_regex, generate_combinations, brute_force, crack
 
 
-@pytest.fixture
-def service():
-    return CrackingService()
+def test_generate_combinations():
+    assert list(generate_combinations('ab', 2)) == [b'a', b'b', b'aa', b'ab', b'ba', b'bb']
 
 
-def test_generate_combinations(service):
-    assert list(service.generate_combinations('ab', 2)) == [b'aa', b'ab', b'ba', b'bb']
-
-
-def test_brute_force(service):
+def test_brute_force():
     # we arent using longer words because testing would take longer
     test_words = [b'sef', b'ant', b'ng8']
 
@@ -22,10 +17,10 @@ def test_brute_force(service):
         return hashlib.sha1(value).hexdigest()
 
     for word in test_words:
-        assert service.brute_force(encrypt(word), len(word), encrypt).keyword == word.decode('utf-8')
+        assert brute_force(encrypt(word), len(word), encrypt).keyword == word.decode('utf-8')
 
 
-def test_dictionary(service):
+def test_dictionary():
     dictionary = [b'1', b'2', b'three', b'4', b'8', b'10', b'twenty']
 
     def encrypt(value: bytes) -> str:
@@ -33,11 +28,11 @@ def test_dictionary(service):
 
     test_words = [b'4', b'three']
     for word in test_words:
-        assert service.crack(encrypt(word), dictionary, encrypt).keyword == word.decode()
+        assert crack(encrypt(word), dictionary, encrypt).keyword == word.decode()
 
     test_words = [b'5', b'six']
     for word in test_words:
-        assert service.crack(encrypt(word), dictionary, encrypt).keyword is None
+        assert crack(encrypt(word), dictionary, encrypt).keyword is None
 
 
 @pytest.mark.parametrize('hash, expected', [
@@ -53,5 +48,5 @@ def test_dictionary(service):
     ('b266a99402546149d337a69788449777', True),
     ('something else', False),
 ])
-def test_validate_hash(hash, expected):
+def test_hash_regex(hash, expected):
     assert bool(hash_regex.fullmatch(hash)) == expected
