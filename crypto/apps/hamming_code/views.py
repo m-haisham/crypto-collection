@@ -1,10 +1,9 @@
 from django.template.response import SimpleTemplateResponse
 
-from .services import HammingService
+from . import services as service
 
 
 def encode(request):
-    service = HammingService()
     sequence = request.POST['sequence'][::-1]
 
     if len(sequence) < 4:
@@ -20,7 +19,6 @@ def encode(request):
 
 
 def decode(request):
-    service = HammingService()
     sequence = request.POST['sequence'][::-1]
     is_even = request.POST['check'] == 'even'
 
