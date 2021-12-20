@@ -50,3 +50,16 @@ def test_dictionary():
 ])
 def test_hash_regex(hash, expected):
     assert bool(hash_regex.fullmatch(hash)) == expected
+
+
+@pytest.mark.skip()
+def test_bruteforce_time():
+    test_words = [b'i', b'to', b'six', b'mist', b'sight', b'brexit']
+
+    def encrypt(value: bytes) -> str:
+        return hashlib.sha1(value).hexdigest()
+
+    print()
+    for word in test_words[:4]:
+        result = brute_force(encrypt(word), 6, encrypt)
+        print(f'{result.keyword}:{len(result.keyword)},{result.time_taken.microseconds},{result.processed_count}')

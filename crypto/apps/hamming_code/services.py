@@ -48,6 +48,7 @@ def encode(data, is_even=True):
     k = 0
     arr = []
 
+    # insert placeholder bits into parity positions
     for i in range(1, n + r + 1):
         if i == 2 ** j:
             arr.append(0)
@@ -58,6 +59,7 @@ def encode(data, is_even=True):
 
     length = len(arr)
 
+    # update the placeholder parity bits
     for p in generate_parity_positions(length):
         count = 0
         for j, bit in enumerate(arr):
