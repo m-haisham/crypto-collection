@@ -39,6 +39,7 @@ Do the setup and run the django app
 
 ```bash
 python manage.py makemigrations
+python manage.py migrate
 python manage.py loaddata credit_card.json
 python manage.py runserver
 ```
