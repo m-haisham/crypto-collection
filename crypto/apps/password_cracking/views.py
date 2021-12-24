@@ -51,7 +51,7 @@ def dictionary(request):
         enc_type = form.cleaned_data.get('enc_type')
         dict_file = form.cleaned_data.get('dict_file')
         if dict_file is None:
-            dict_file = Path(staticfiles_storage.path('assets/wordlists/cewl_dvwa_password.txt'))
+            dict_file = Path(staticfiles_storage.path('assets/wordlists/10m-passlist.txt'))
 
         result = dictionary_file(hashed_word, dict_file, get_encryption_function(enc_type))
 
