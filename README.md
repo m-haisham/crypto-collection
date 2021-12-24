@@ -13,7 +13,7 @@ A collection of projects that are related to cryptography.
 
 ### Prerequisite
 
-- [Python 3.8 or above](https://www.python.org/)
+- [Python 3.8 or 3.9](https://www.python.org/)
 
 ### Steps
 
@@ -35,9 +35,11 @@ Install the requirements by running
 python -m pip install -r requirements.txt
 ```
 
-Run the django app
+Do the setup and run the django app
 
 ```bash
+python manage.py migrate
+python manage.py loaddata credit_card.json
 python manage.py runserver
 ```
 
