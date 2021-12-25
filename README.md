@@ -17,17 +17,7 @@ A collection of projects that are related to cryptography.
 
 ### Steps
 
-Clone the project
-
-```bash
-git clone https://github.com/mensch272/crypto-collection.git
-```
-
-Move into the project directory
-
-```bash
-cd crypto-collection
-```
+Open the project root folder in terminal
 
 Install the requirements by running
 
@@ -40,6 +30,7 @@ Do the setup and run the django app
 ```bash
 python manage.py migrate
 python manage.py loaddata credit_card.json
+python manage.py collectstatic
 python manage.py runserver
 ```
 
