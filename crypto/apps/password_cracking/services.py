@@ -25,8 +25,10 @@ class Result:
 
 
 def get_encryption_function(enc_type: str) -> encrypt:
+    hasher = getattr(hashlib, enc_type)
+
     def enc_function(value):
-        return getattr(hashlib, enc_type)(value).hexdigest()
+        return hasher(value).hexdigest()
 
     return enc_function
 
