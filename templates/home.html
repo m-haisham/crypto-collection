@@ -22,7 +22,7 @@
                             word kryptos, which means hidden. It is closely associated to encryption, which is the act
                             of scrambling ordinary text into what's known as ciphertext and then back again upon
                             arrival.</p>
-                        <p>This is a group of closely related cryptography projects.</p>
+                        <p>This is a group of closely related projects used to explore some aspects of cryptography.</p>
                         <p><code>[UFCFT4-15-3]</code></p>
                     </div>
                     <div class="col-12 col-sm-10 col-md-6 mx-auto mx-md-0">
@@ -38,8 +38,11 @@
                     <div class="item mb-5">
                         <div class="row g-3 g-xl-0">
                             <div class="col">
-                                <h3 class="title mb-1"><a class="text-link"
-                                                          href="{% url 'blog:posts' date=post.published name=post.link %}">{{ post.title }}</a>
+                                <h3 class="title mb-1">
+                                    <a class="text-link"
+                                       href="{% url 'blog:posts' date=post.published name=post.link %}">
+                                        {{ post.title }}
+                                    </a>
                                 </h3>
                                 <div class="meta mb-1"><span class="date">Published on {{ post.published }}</span></div>
                                 <div class="intro">{{ post.description }}</div>

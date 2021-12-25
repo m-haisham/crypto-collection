@@ -8,6 +8,78 @@
     </p>
     <p>The technique was developed by <b>R.W. Hamming.</b></p>
 
+    <h3 class="my-3">How it works</h3>
+
+    <div class="accordion shadow-sm mt-4" id="luhn-other-accordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo"
+                        aria-expanded="false" aria-controls="collapseTwo">
+                    Encode
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                 data-bs-parent="#luhn-other-accordion">
+                <div class="accordion-body">
+
+                    <p><b>Step1:</b> The first step is to calculate the no.of redundant bits in a message</p>
+                    <ol>
+                        <li>For example, if a message contains ‘n’ no.of bits and ‘p’ no.of redundant bits are added to
+                            the message, then ‘np’ indicates (n+p+1) different states.
+                        </li>
+                        <li>Where (n+p) represents the location of an error in every bit position</li>
+                        <li>1 (extra state) represents no error.</li>
+                        <li>Since ‘p’ indicates 2^p (2p ) states, which are equal to (n+p+1) states.</li>
+                    </ol>
+
+                    <p><b>Step2:</b> Place the redundant bits in exact/correct position</p>
+                    <ol>
+                        <li>‘p’ bits are inserted in the bit positions which are the power of 2 like 1, 2, 4, 8, 16,
+                            etc. These bit positions are indicated as p1 (position 1), p2 (position 2), p3 (position 4),
+                            etc.
+                        </li>
+                    </ol>
+
+                    <p><b>Step 3:</b> Calculate the values of redundant bits</p>
+                    <ol>
+                        <li>Here parity bits are used to calculate the values of redundant bits.</li>
+                        <li>Parity bits can make the no.of 1’s in a message either even or odd.</li>
+                        <li>If total no.of 1’s in a message is even, then even parity is used</li>
+                        <li>
+                            If total no.of 1’s in a message is odd, then odd parity is used.
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne"
+                        aria-expanded="false" aria-controls="collapseOne">
+                    Decode
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                 data-bs-parent="#luhn-other-accordion">
+                <div class="accordion-body">
+                    <p><b>Step1:</b> Count the no.of redundant bits</p>
+                    <p>The formula to encode the message using redundant bits is,</p>
+                    <p class="text-center"><strong>2p≥ n + p + 1</strong></p>
+
+                    <p><b>Step 2:</b> correct the positions of all redundant bits</p>
+                    <p>‘p’ no.of redundant bits are placed in a bit positions of power of 2 like 1,2,4,8,16,32 etc</p>
+
+                    <p><b>Step3:</b> parity checking (odd parity and even parity)</p>
+                    <p>Parity bits are calculated based on the no.of 1’s in data bits and redundant bits.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-3"></div>
+
     {% include 'hamming_code/logic.html' %}
 {% endblock %}
 
